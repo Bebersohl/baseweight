@@ -1,0 +1,6 @@
+node_modules
+dist
+userIds.json
+config.ts
+serviceAccount.json
+serviceAccountProd.json

@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /gearLists/{listId} {
+      allow read: if true;
+      allow delete: if request.auth.uid == resource.data.userId;
+      allow write: if request.auth.uid == request.resource.data.userId
+    }
+    match /users/{uid} {
+      allow read: if true;
+      allow write: if request.auth.uid == uid
+    }
+    match /suggestions/{label} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

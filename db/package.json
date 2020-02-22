@@ -1,0 +1,23 @@
+{
+  "name": "test-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "rimraf dist && tsc && env GOOGLE_APPLICATION_CREDENTIALS=./serviceAccount.json node dist/db/index",
+    "start:prod": "rimraf dist && tsc && env GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountProd.json node dist/db/index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.9.1",
+    "faker": "^4.1.0",
+    "firebase": "^7.8.0",
+    "firebase-admin": "^8.9.2",
+    "firestore-export-import": "^0.3.2",
+    "rimraf": "^3.0.0",
+    "shortid": "^2.2.15",
+    "typescript": "^3.7.5"
+  }
+}

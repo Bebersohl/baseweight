@@ -1,0 +1,565 @@
+{
+  "id": "demo",
+  "name": "CDT 2019",
+  "description": "## CDT 2019\n\nNobo may 3rd start date. Flipped to glacier after NM.",
+  "lastUpdated": 1580261738113,
+  "userId": "demo",
+  "categoryIds": [
+    "-Sb_p4Vzs",
+    "q833FbDf",
+    "EbCges4I",
+    "wZFKdm-r",
+    "YADz-oRK",
+    "noyTbrTw",
+    "rqy3VtOv",
+    "3tmYsRPF"
+  ],
+  "categories": {
+    "-Sb_p4Vzs": {
+      "id": "-Sb_p4Vzs",
+      "name": "Pack",
+      "gearIds": [
+        "Bxjq7ddX",
+        "ZDk_i2P8q"
+      ],
+      "color": "#f44336",
+      "gearItems": {
+        "Bxjq7ddX": {
+          "id": "Bxjq7ddX",
+          "catId": "-Sb_p4Vzs",
+          "name": "Pa'lante Simple Pack V2",
+          "description": "Hurts my shoulders; don't recommend",
+          "hyperlink": "https://palantepacks.com/product/v2/",
+          "weight": "17",
+          "price": "240",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "ZDk_i2P8q": {
+          "id": "ZDk_i2P8q",
+          "catId": "-Sb_p4Vzs",
+          "name": "GG Pack Liner",
+          "description": "",
+          "hyperlink": "",
+          "weight": "1.2",
+          "price": "5",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "q833FbDf": {
+      "id": "q833FbDf",
+      "name": "Shelter",
+      "gearIds": [
+        "S3Hk4R-ZJ",
+        "Y6GdAY9Tq",
+        "9KffwayLH",
+        "Vr_uN2Iel"
+      ],
+      "color": "#e91e63",
+      "gearItems": {
+        "S3Hk4R-ZJ": {
+          "id": "S3Hk4R-ZJ",
+          "catId": "-Sb_p4Vzs",
+          "name": "MLD Pro Rain Poncho Tarp",
+          "description": "It worked but I'd rather use a cuben fiber tent",
+          "hyperlink": "",
+          "weight": "12",
+          "price": "189",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "Y6GdAY9Tq": {
+          "id": "Y6GdAY9Tq",
+          "catId": "-Sb_p4Vzs",
+          "name": "7x Mini Groundhog",
+          "description": "",
+          "hyperlink": "",
+          "weight": "2.45",
+          "price": "17.5",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "9KffwayLH": {
+          "id": "9KffwayLH",
+          "catId": "-Sb_p4Vzs",
+          "name": "Borah Cuben Bivy (Long/Wide)",
+          "description": "",
+          "hyperlink": "",
+          "weight": "5",
+          "price": "180",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "Vr_uN2Iel": {
+          "id": "Vr_uN2Iel",
+          "catId": "-Sb_p4Vzs",
+          "name": "Montbell Travel Umbrella",
+          "description": "Lost in NM, had to buy a new one :(",
+          "hyperlink": "",
+          "weight": "3",
+          "price": "52",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "EbCges4I": {
+      "id": "EbCges4I",
+      "name": "Sleep",
+      "gearIds": [
+        "RiIn4BKyl",
+        "CV3pNe2LY",
+        "O8rlIj3B7"
+      ],
+      "color": "#9c27b0",
+      "gearItems": {
+        "RiIn4BKyl": {
+          "id": "RiIn4BKyl",
+          "catId": "-Sb_p4Vzs",
+          "name": "S2S Aeros Pillow",
+          "description": "Favorite piece of gear",
+          "hyperlink": "",
+          "weight": "3",
+          "price": "45",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "CV3pNe2LY": {
+          "id": "CV3pNe2LY",
+          "catId": "-Sb_p4Vzs",
+          "name": "Therm-a-Rest NeoAir XLite Sleeping Pad",
+          "description": "",
+          "hyperlink": "",
+          "weight": "8.2",
+          "price": "145",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "O8rlIj3B7": {
+          "id": "O8rlIj3B7",
+          "catId": "-Sb_p4Vzs",
+          "name": "Katabatic Gear Sawatch 15",
+          "description": "",
+          "hyperlink": "",
+          "weight": "25.1",
+          "price": "450",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "wZFKdm-r": {
+      "id": "wZFKdm-r",
+      "name": "Clothes Worn",
+      "gearIds": [
+        "DJngVgI9z0",
+        "cPuyvt-kfw",
+        "Gr3l9gSEW1",
+        "5l0tGNYqvF",
+        "vgKeRETrpY",
+        "OKXFg9-nwz",
+        "9nPyAii-Gn"
+      ],
+      "color": "#673ab7",
+      "gearItems": {
+        "DJngVgI9z0": {
+          "id": "DJngVgI9z0",
+          "catId": "-Sb_p4Vzs",
+          "name": "Pa'lante Fanny pack",
+          "description": "",
+          "hyperlink": "",
+          "weight": "2.3",
+          "price": "40",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "Gr3l9gSEW1": {
+          "id": "Gr3l9gSEW1",
+          "catId": "-Sb_p4Vzs",
+          "name": "Trucker Hat",
+          "description": "",
+          "hyperlink": "",
+          "weight": "3",
+          "price": "20",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "5l0tGNYqvF": {
+          "id": "5l0tGNYqvF",
+          "catId": "-Sb_p4Vzs",
+          "name": "Columbia Silver Ridge Lite Long-Sleeve Shirt",
+          "description": "",
+          "hyperlink": "",
+          "weight": "8",
+          "price": "26",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "vgKeRETrpY": {
+          "id": "vgKeRETrpY",
+          "catId": "-Sb_p4Vzs",
+          "name": "Altra Lone Peaks 4.0",
+          "description": "I miss 3.0's",
+          "hyperlink": "",
+          "weight": "19",
+          "price": "120",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "OKXFg9-nwz": {
+          "id": "OKXFg9-nwz",
+          "catId": "-Sb_p4Vzs",
+          "name": "Goldtoe Nylon Dress Socks",
+          "description": "",
+          "hyperlink": "",
+          "weight": "1.25",
+          "price": "9",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "9nPyAii-Gn": {
+          "id": "9nPyAii-Gn",
+          "catId": "-Sb_p4Vzs",
+          "name": "Nike Flex Stride Running Shorts",
+          "description": "",
+          "hyperlink": "",
+          "weight": "4",
+          "price": "50",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "cPuyvt-kfw": {
+          "id": "cPuyvt-kfw",
+          "catId": "-Sb_p4Vzs",
+          "name": "UV Buff",
+          "description": "",
+          "hyperlink": "",
+          "weight": "1.3",
+          "price": "20",
+          "worn": true,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "YADz-oRK": {
+      "id": "YADz-oRK",
+      "name": "Clothes Packed",
+      "gearIds": [
+        "n5OTSdOCga",
+        "09osns4fM2",
+        "Y5NunbFSJx",
+        "JeR3E2VnM5",
+        "7eS_7wt89F"
+      ],
+      "color": "#3f51b5",
+      "gearItems": {
+        "09osns4fM2": {
+          "id": "09osns4fM2",
+          "catId": "-Sb_p4Vzs",
+          "name": "Merino Wool Mittens",
+          "description": "",
+          "hyperlink": "",
+          "weight": "1",
+          "price": "20",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "JeR3E2VnM5": {
+          "id": "JeR3E2VnM5",
+          "catId": "-Sb_p4Vzs",
+          "name": "Montbell Dynamo Wind Pants",
+          "description": "",
+          "hyperlink": "",
+          "weight": "2.8",
+          "price": "99",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "7eS_7wt89F": {
+          "id": "7eS_7wt89F",
+          "catId": "-Sb_p4Vzs",
+          "name": "Montbell Superior Down Parka",
+          "description": "",
+          "hyperlink": "",
+          "weight": "8.6",
+          "price": "209",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "Y5NunbFSJx": {
+          "id": "Y5NunbFSJx",
+          "catId": "-Sb_p4Vzs",
+          "name": "Goldtoe Nylon Dress Socks",
+          "description": "Spare pair",
+          "hyperlink": "",
+          "weight": "1.25",
+          "price": "9",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "n5OTSdOCga": {
+          "id": "n5OTSdOCga",
+          "catId": "-Sb_p4Vzs",
+          "name": "Patagonia Houdini Zip-Front Jacket",
+          "description": "",
+          "hyperlink": "",
+          "weight": "3.8",
+          "price": "99",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "noyTbrTw": {
+      "id": "noyTbrTw",
+      "name": "Electronics",
+      "gearIds": [
+        "9soSSqC1WH",
+        "zqOVK0HxbO",
+        "KWnsp7oSkK"
+      ],
+      "color": "#2196f3",
+      "gearItems": {
+        "zqOVK0HxbO": {
+          "id": "zqOVK0HxbO",
+          "catId": "-Sb_p4Vzs",
+          "name": "Anker PowerCore Speed 10000 QC",
+          "description": "",
+          "hyperlink": "",
+          "weight": "6.77",
+          "price": "35",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "9soSSqC1WH": {
+          "id": "9soSSqC1WH",
+          "catId": "-Sb_p4Vzs",
+          "name": "Anker Quick Charge 3.0 ",
+          "description": "",
+          "hyperlink": "",
+          "weight": "3.8",
+          "price": "26",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "KWnsp7oSkK": {
+          "id": "KWnsp7oSkK",
+          "catId": "-Sb_p4Vzs",
+          "name": "Samsung Galaxy S8",
+          "description": "",
+          "hyperlink": "",
+          "weight": "6.1",
+          "price": "350",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "rqy3VtOv": {
+      "id": "rqy3VtOv",
+      "name": "Food & Water",
+      "gearIds": [
+        "OSFCPRCukR",
+        "9xKMRebXzj",
+        "q5gt7jZEkV",
+        "pv0LgRe4xg"
+      ],
+      "color": "#009688",
+      "gearItems": {
+        "OSFCPRCukR": {
+          "id": "OSFCPRCukR",
+          "catId": "-Sb_p4Vzs",
+          "name": "Sawyer Squeeze",
+          "description": "",
+          "hyperlink": "",
+          "weight": "3",
+          "price": "37",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "9xKMRebXzj": {
+          "id": "9xKMRebXzj",
+          "catId": "-Sb_p4Vzs",
+          "name": "Grocery Bag",
+          "description": "Food bag",
+          "hyperlink": "",
+          "weight": "1",
+          "price": "0",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "q5gt7jZEkV": {
+          "id": "q5gt7jZEkV",
+          "catId": "-Sb_p4Vzs",
+          "name": "Plastic Spoon",
+          "description": "Comes with a McFlurry",
+          "hyperlink": "",
+          "weight": "0.2",
+          "price": "4",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "pv0LgRe4xg": {
+          "id": "pv0LgRe4xg",
+          "catId": "-Sb_p4Vzs",
+          "name": "2x Smartwater 1L",
+          "description": "",
+          "hyperlink": "",
+          "weight": "2.8",
+          "price": "5",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    },
+    "3tmYsRPF": {
+      "id": "3tmYsRPF",
+      "name": "Poop Kit",
+      "gearIds": [
+        "GWMsUlha3X",
+        "9WhgVGHSoL",
+        "2X-vidqikY"
+      ],
+      "color": "#4caf50",
+      "gearItems": {
+        "GWMsUlha3X": {
+          "id": "GWMsUlha3X",
+          "catId": "-Sb_p4Vzs",
+          "name": "Toilet paper",
+          "description": "",
+          "hyperlink": "",
+          "weight": "0.1",
+          "price": "0",
+          "worn": false,
+          "consumable": true,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "9WhgVGHSoL": {
+          "id": "9WhgVGHSoL",
+          "catId": "-Sb_p4Vzs",
+          "name": "The Deuce Trowel",
+          "description": "",
+          "hyperlink": "",
+          "weight": "0.6",
+          "price": "21",
+          "worn": false,
+          "consumable": false,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        },
+        "2X-vidqikY": {
+          "id": "2X-vidqikY",
+          "catId": "-Sb_p4Vzs",
+          "name": "Hand Sanitizer",
+          "description": "",
+          "hyperlink": "",
+          "weight": "0.8",
+          "price": "0",
+          "worn": false,
+          "consumable": true,
+          "starred": "none",
+          "checked": false,
+          "unit": "oz"
+        }
+      }
+    }
+  },
+  "showCheckboxes": false,
+  "showPrices": true,
+  "showDescriptions": true,
+  "sortCategoriesBy": "weight",
+  "sortCategoriesDirection": "desc",
+  "sortItemsBy": "weight",
+  "sortItemsDirection": "desc",
+  "currencyCharacter": "$",
+  "unitType": "imperial"
+}
