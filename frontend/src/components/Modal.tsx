@@ -6,6 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useIsMobile } from '../hooks/media';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { actions as reduxActions } from '../reducers/index';
 
 const useStyles = makeStyles({
   content: {
@@ -34,10 +36,17 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const isMobile = useIsMobile();
   const classes = useStyles({});
+  const dispatch = useDispatch();
 
   return (
     <Dialog
-      onClose={onModalClose}
+      onClose={() => {
+        onModalClose();
+        dispatch(reduxActions.setAlert({
+          severity: 'error',
+          message: ''
+        }))
+      }}
       open={isModalOpen}
       fullScreen={isMobile}
       onEnter={onEnter}

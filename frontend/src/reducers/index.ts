@@ -21,6 +21,7 @@ export const actions = {
   ...gearListsSlice.actions,
   ...editModeSlice.actions,
   ...modalsSlice.actions,
+  ...alertSlice.actions
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
