@@ -63,13 +63,6 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
         You can{' '}
         <Link
           href="#"
-          onClick={() => dispatch(actions.setEditMode({ editMode: true }))}
-        >
-          edit
-        </Link>{' '}
-        or{' '}
-        <Link
-          href="#"
           onClick={() => {
             const newListId = shortid.generate();
             dispatch(actions.copyList({ list: demoList, newListId, userId }));
@@ -90,7 +83,7 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
       </Typography>
 
       {demoList ? (
-        <ItemList hideHeader hideIcons listId="demo" />
+        <ItemList hideHeader listId="demo" />
       ) : (
         <Typography style={{ marginTop: 50 }} align="center" >Loading demo...</Typography>
       )}

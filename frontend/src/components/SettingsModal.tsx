@@ -6,8 +6,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { UnitType } from '../types';
 import { useDispatch } from 'react-redux';
@@ -59,25 +57,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       onModalClose={onSettingsModalClose}
     >
       <List className={classes.list}>
-        <ListItem>
-          <ListItemText primary="Units" />
-          <ListItemSecondaryAction>
-            <Select
-              value={unitType}
-              onChange={e =>
-                dispatch(
-                  actions.updateUnitType({
-                    listId,
-                    unitType: e.target.value as UnitType,
-                  })
-                )
-              }
-            >
-              <MenuItem value="metric">Metric</MenuItem>
-              <MenuItem value="imperial">Imperial</MenuItem>
-            </Select>
-          </ListItemSecondaryAction>
-        </ListItem>
         {isListOwner && (
           <>
             <ListItem>

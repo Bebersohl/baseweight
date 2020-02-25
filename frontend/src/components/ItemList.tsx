@@ -66,7 +66,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface ItemListProps {
-  hideIcons?: boolean;
   hideHeader?: boolean;
   listId: string;
 }
@@ -80,14 +79,14 @@ const ItemList: React.FC<ItemListProps> = props => {
 
   const editMode = useAppSelector(state => state.editMode);
 
-  const theme = useTheme()
+  const theme = useTheme();
 
   const list = useAppSelector(
     state => state.gearLists.gearListsMap[props.listId],
     shallowEqual
   );
 
-  const { hideIcons = false, hideHeader = false } = props;
+  const { hideHeader = false } = props;
 
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
   const [hyperlinkItem, setHyperlinkItem] = useState<{
@@ -96,7 +95,7 @@ const ItemList: React.FC<ItemListProps> = props => {
   } | null>(null);
   const [lastAddedCatId, setlastAddedCatId] = useState('');
 
-  const isListOwner = list.userId === userId || list.userId === 'demo';
+  const isListOwner = list.userId === userId;
 
   const categoryTotals = React.useMemo(
     () => getCategoryTotals(list.categories, list.categoryIds),
@@ -109,12 +108,14 @@ const ItemList: React.FC<ItemListProps> = props => {
   );
 
   const onSettingsModalClose = React.useCallback(
-    () => setSettingsModalOpen(false), []
-  )
+    () => setSettingsModalOpen(false),
+    []
+  );
 
   const onAddHyperlinkModalClose = React.useCallback(
-    () => setHyperlinkItem(null), []
-  )
+    () => setHyperlinkItem(null),
+    []
+  );
 
   const sortedCategoryIds = editMode
     ? list.categoryIds
@@ -266,46 +267,42 @@ const ItemList: React.FC<ItemListProps> = props => {
           justify="flex-end"
           className="noPrint"
         >
-          {!hideIcons && (
-            <>
-              <ListMenu
-                isListOwner={isListOwner}
-                handleCopyList={() => {
-                  const newListId = shortid.generate();
+          <ListMenu
+            isListOwner={isListOwner}
+            handleCopyList={() => {
+              const newListId = shortid.generate();
 
-                  dispatch(actions.copyList({ list, newListId, userId }));
+              dispatch(actions.copyList({ list, newListId, userId }));
 
-                  navigate('/list/' + newListId);
-                }}
-                handleExportList={() => {
-                  const data = convertListToCsvString(list);
+              navigate('/list/' + newListId);
+            }}
+            handleExportList={() => {
+              const data = convertListToCsvString(list);
 
-                  const fileTitle = filenamify(list.name) + '.csv';
+              const fileTitle = filenamify(list.name) + '.csv';
 
-                  downloadFile(fileTitle, data);
-                }}
-                handleDeleteList={() => {
-                  if (
-                    window.confirm(
-                      'Are you sure you want to delete this list? It cannot be undone.'
-                    )
-                  ) {
-                    dispatch(actions.deleteList(list.id));
-                  }
-                }}
-              />
-              <FileUploadInput list={list} />
-              <Tooltip title="Settings">
-                <IconButton
-                  color="secondary"
-                  onClick={() => setSettingsModalOpen(true)}
-                >
-                  <SettingsIcon />
-                </IconButton>
-              </Tooltip>
-              <SharePopover />
-            </>
-          )}
+              downloadFile(fileTitle, data);
+            }}
+            handleDeleteList={() => {
+              if (
+                window.confirm(
+                  'Are you sure you want to delete this list? It cannot be undone.'
+                )
+              ) {
+                dispatch(actions.deleteList(list.id));
+              }
+            }}
+          />
+          <FileUploadInput list={list} />
+          <Tooltip title="Settings">
+            <IconButton
+              color="secondary"
+              onClick={() => setSettingsModalOpen(true)}
+            >
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
+          <SharePopover />
           {isListOwner && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch
@@ -313,11 +310,31 @@ const ItemList: React.FC<ItemListProps> = props => {
                 color="secondary"
                 size="small"
                 checked={editMode}
-                onChange={() => dispatch(actions.setEditMode({ editMode: !editMode, listId: list.id }))}
+                onChange={() =>
+                  dispatch(
+                    actions.setEditMode({
+                      editMode: !editMode,
+                      listId: list.id,
+                    })
+                  )
+                }
                 value="edit"
               />
             </Tooltip>
           )}
+          <Button
+            color="secondary"
+            onClick={e =>
+              dispatch(
+                actions.updateUnitType({
+                  listId: list.id,
+                  unitType: list.unitType === 'metric' ? 'imperial' : 'metric',
+                })
+              )
+            }
+          >
+            {list.unitType}
+          </Button>
         </Grid>
       </Grid>
       <Grid item container spacing={3}>
