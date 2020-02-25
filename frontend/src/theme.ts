@@ -1,7 +1,35 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, red } from '@material-ui/core/colors';
 
-export default createMuiTheme({
+const lightMode = {
+  palette: {
+    background: {
+      paper: '#fff',
+      default: "#f7f8fc"
+    },
+    // primary: {
+    //   main: prefersDarkMode ? blue[300] : indigo[500],
+    // },
+    // secondary: {
+    //   main: prefersDarkMode ? red[300] : pink[500],
+    // },
+    type: 'light',
+  },
+}
+
+const darkMode = {
+  palette: {
+    primary: {
+      main: blue[300],
+    },
+    secondary: {
+      main: red[300],
+    },
+    type: 'dark',
+  },
+}
+
+const common = {
   typography: {
     fontSize: 12,
   },
@@ -11,15 +39,6 @@ export default createMuiTheme({
         fontSize: '.75rem',
       },
     },
-  },
-  palette: {
-    primary: {
-      main: blue[300],
-    },
-    secondary: {
-      main: red[300],
-    },
-    type: 'dark',
   },
   mixins: {
     toolbar: {
@@ -32,4 +51,18 @@ export default createMuiTheme({
       },
     },
   },
-});
+}
+export const createTheme = (paletteType) => {
+  if(paletteType === 'dark') {
+    return createMuiTheme({
+      ...common,
+      ...darkMode
+    } as any)
+  }
+
+  return createMuiTheme({
+    ...common,
+    ...lightMode,
+  } as any)
+
+}

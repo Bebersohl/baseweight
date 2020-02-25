@@ -18,6 +18,8 @@ export type Alert = {
   message: string;
 };
 
+export type PaletteType = 'light' | 'dark'
+
 export type Severity = 'error' | 'success' | 'info' | 'warning' | undefined;
 
 export type Starred = 'red' | 'green' | 'blue' | 'none';

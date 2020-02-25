@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Header from './Header';
 import Container from '../components/Container';
 import Routes from './Routes';
@@ -12,8 +12,32 @@ import { useAppSelector } from '../store';
 import { actions } from '../reducers';
 import { auth } from '../firebase';
 import { unsavedChangesSelector } from '../selectors';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { createTheme } from '../theme';
+import { PaletteType } from '../types'
 
 const App: React.FC = () => {
+  const storedPalleteType = localStorage.getItem('paletteType')
+
+  const paletteTypeDefault = storedPalleteType !== null ? storedPalleteType : 'dark'
+
+  const [paletteType, setDarkMode] = useState<PaletteType>(paletteTypeDefault as PaletteType);
+
+  const theme = React.useMemo(() => createTheme(paletteType), [
+    paletteType,
+  ]);
+
+  const onPaletteTypeChange = useCallback(() => {
+    setDarkMode((prev) => {
+
+      const nextType = prev === 'light' ? 'dark' : 'light'
+
+      localStorage.setItem('paletteType', nextType)
+      return nextType
+    });
+  }, [])
+
   const dispatch = useDispatch();
 
   const userId = useAppSelector(state => state.user.id);
@@ -39,8 +63,9 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Header />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header paletteType={paletteType} onPaletteTypeChange={onPaletteTypeChange}/>
       <Container>
         <Routes />
       </Container>
@@ -58,7 +83,7 @@ const App: React.FC = () => {
           {snackMessage}
         </Alert>
       </Snackbar>
-    </>
+    </ThemeProvider>
   );
 };
 

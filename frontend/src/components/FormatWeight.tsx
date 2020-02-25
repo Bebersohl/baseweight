@@ -7,7 +7,7 @@ import { UnitType, Unit } from '../types';
 
 const useStyles: any = makeStyles((theme): any => ({
   unit: (props): any => ({
-    color: theme.palette.grey[500],
+    color: theme.palette.grey[700],
     fontWeight: props.bold ? 600 : theme.typography.body1.fontWeight,
   }),
   text: (props): any => ({

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AppDrawer from './AppDrawer';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
 import ForgotModal from './ForgotModal';
@@ -16,6 +16,7 @@ import { Location } from '@reach/router';
 import { useDispatch } from 'react-redux';
 import { actions } from '../reducers';
 import { useAppSelector } from '../store';
+import ToggleDarkButton from './ToggleDarkButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header: React.FC<{}> = () => {
+interface HeaderProps {
+  paletteType: 'light' | 'dark';
+  onPaletteTypeChange: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
 
   const isSignInModalOpen = useAppSelector(state => state.modals.signIn);
@@ -56,21 +62,23 @@ const Header: React.FC<{}> = () => {
     setAnchorMenuEl(null);
   };
 
+  const theme = useTheme();
+
   return (
     <>
-      <AppBar position="static" color="default" className="noPrint">
+      <AppBar position="static" color={theme.palette.type === 'dark' ? 'default' : 'primary'} className="noPrint">
         <Toolbar className={classes.toolBar}>
           <IconButton
             onClick={() => setDrawerOpen(true)}
             className={classes.menuButton}
             edge="start"
             color="inherit"
-            aria-label="menu"
             size="small"
           >
             <MenuIcon />
           </IconButton>
           <div className={classes.space} />
+          <ToggleDarkButton paletteType={paletteType} onPaletteTypeChange={onPaletteTypeChange}/>
           {userId.length > 13 ? (
             <>
               <IconButton

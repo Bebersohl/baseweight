@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Graph from './Graph';
@@ -77,7 +77,11 @@ const ItemList: React.FC<ItemListProps> = props => {
   const dispatch = useDispatch();
 
   const userId = useAppSelector(state => state.user.id);
+
   const editMode = useAppSelector(state => state.editMode);
+
+  const theme = useTheme()
+
   const list = useAppSelector(
     state => state.gearLists.gearListsMap[props.listId],
     shallowEqual
@@ -163,6 +167,7 @@ const ItemList: React.FC<ItemListProps> = props => {
       })
     );
   }
+
   function renderCategoryTables(sortedCategoryIds) {
     const categories = sortedCategoryIds.map((catId, index) => {
       const { totalPrice, totalWeight } = categoryTotals[catId];
@@ -304,6 +309,8 @@ const ItemList: React.FC<ItemListProps> = props => {
           {isListOwner && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch
+                // color={theme.palette.type === 'light' ? 'secondary' : 'secondary'}
+                color="secondary"
                 size="small"
                 checked={editMode}
                 onChange={() => dispatch(actions.setEditMode({ editMode: !editMode, listId: list.id }))}

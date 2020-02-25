@@ -5,36 +5,41 @@ const useStyles = makeStyles(theme => ({
   drag: {
     flexBasis: 30,
   },
-  row: (props: any): any => ({
-    '& .hiddenIcon': props => ({
-      color: theme.palette.grey[700],
-      cursor: props.editMode ? 'pointer' : 'default',
-      display: 'none',
-    }),
-    display: 'flex',
-    alignItems: 'center',
-    borderBottom:
-      props.borderStyle === 'none'
-        ? 'none'
-        : `1px ${props.borderStyle} ${theme.palette.divider}`,
-    padding: '2.5px 0 2.5px 0',
-    flexDirection: 'row',
-    '& div': {
-      marginRight: 5,
-    },
-    '& div:last-child': {
-      marginRight: 0,
-    },
-    '&:hover': props => ({
-      '& input': {
-        backgroundColor: theme.palette.grey[900],
+  row: (props: any): any => {
+    const highlightColor =
+      theme.palette.type === 'light' ? 'white' : theme.palette.grey[900];
+
+    return {
+      '& .hiddenIcon': props => ({
+        color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[700],
+        cursor: props.editMode ? 'pointer' : 'default',
+        display: 'none',
+      }),
+      display: 'flex',
+      alignItems: 'center',
+      borderBottom:
+        props.borderStyle === 'none'
+          ? 'none'
+          : `1px ${props.borderStyle} ${theme.palette.divider}`,
+      padding: '2.5px 0 2.5px 0',
+      flexDirection: 'row',
+      '& div': {
+        marginRight: 5,
       },
-      backgroundColor: theme.palette.grey[900],
-    }),
-    '&:hover svg.hiddenIcon': props => ({
-      display: props.editMode ? 'inline-block' : 'none',
-    }),
-  }),
+      '& div:last-child': {
+        marginRight: 0,
+      },
+      '&:hover': props => ({
+        '& input': {
+          backgroundColor: highlightColor,
+        },
+        backgroundColor: highlightColor,
+      }),
+      '&:hover svg.hiddenIcon': props => ({
+        display: props.editMode ? 'inline-block' : 'none',
+      }),
+    };
+  },
 }));
 
 interface RowProps {

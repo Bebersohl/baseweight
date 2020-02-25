@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     outline: 'none',
     boxSizing: 'border-box',
     '&:hover, &:focus': {
-      borderBottom: `2px solid ${theme.palette.grey[700]}`,
+      borderBottom: `2px solid ${theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[700]}`,
     },
     width: '100%',
   }),
