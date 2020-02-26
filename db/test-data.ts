@@ -121,6 +121,7 @@ function generateGearList(id): GearList {
     categories: gearCategories,
     showCheckboxes: true,
     showPrices: true,
+    showQuantities: true,
     showDescriptions: faker.random.boolean(),
     sortCategoriesBy: 'name',
     sortCategoriesDirection: 'custom',
