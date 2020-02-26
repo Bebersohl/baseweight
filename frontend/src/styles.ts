@@ -22,6 +22,11 @@ export const rowStyles: any = props => ({
     flexBasis: 20,
     flexShrink: 0,
   },
+  quantity: {
+    flexBasis: 40,
+    flexShrink: 0,
+    display: 'flex',
+  },
   nameHeader: props => {
     let minWidth = 168;
 
@@ -100,5 +105,12 @@ export const rowStyles: any = props => ({
     background: 'transparent',
     width: 20,
     height: 20,
+  },
+  times: {
+    display: 'inline-flex',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5
   },
 });

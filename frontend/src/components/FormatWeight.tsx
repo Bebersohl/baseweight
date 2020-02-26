@@ -21,6 +21,7 @@ interface FormatWeightProps {
   unit?: Unit;
   bold?: boolean;
   showUnit?: boolean;
+  quantity?: string;
 }
 
 const FormatWeight: React.FC<FormatWeightProps> = ({
@@ -29,12 +30,15 @@ const FormatWeight: React.FC<FormatWeightProps> = ({
   unit,
   bold = false,
   showUnit = true,
+  quantity = '1',
 }) => {
   const classes = useStyles({ bold });
+
   const displayUnit = unit ? unit : getDisplayUnit(value, unitType);
+
   const displayWeight =
     typeof value === 'string'
-      ? value
+      ? toFixed(Number(value) * parseInt(quantity, 10))
       : toFixed(fromGrams(value, displayUnit));
 
   return (

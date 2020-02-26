@@ -78,14 +78,19 @@ export function getListTotals(
 
     const itemWeight = toGrams(item.weight, item.unit);
 
-    const consumableWeight = item.consumable ? itemWeight : 0;
+    const quantity = parseInt(item.quantity || '1', 10);
 
-    const wornWeight = item.worn ? itemWeight : 0;
+    const weightWithQuantity = itemWeight * quantity;
 
-    const baseWeight = !item.worn && !item.consumable ? itemWeight : 0;
+    const consumableWeight = item.consumable ? weightWithQuantity : 0;
+
+    const wornWeight = item.worn ? weightWithQuantity : 0;
+
+    const baseWeight = !item.worn && !item.consumable ? weightWithQuantity : 0;
+
     return {
-      totalPrice: acc.totalPrice + toCents(item.price),
-      totalWeight: acc.totalWeight + itemWeight,
+      totalPrice: acc.totalPrice + (toCents(item.price) * quantity),
+      totalWeight: acc.totalWeight + weightWithQuantity,
       consumableWeight: acc.consumableWeight + consumableWeight,
       wornWeight: acc.wornWeight + wornWeight,
       baseWeight: acc.baseWeight + baseWeight,
@@ -125,15 +130,18 @@ export function getCategoryTotals(
 
     cat.gearIds.forEach(gearId => {
       const item = cat.gearItems[gearId];
+
       const weightInGrams = toGrams(item.weight, item.unit);
 
+      const weightWithQuantity = weightInGrams * parseInt(item.quantity || '1', 10);
+
       totalPrice = totalPrice + toCents(item.price);
-      totalWeight = totalWeight + weightInGrams;
+      totalWeight = totalWeight + weightWithQuantity;
       if (item.consumable) {
-        totalConsumable = totalConsumable + weightInGrams;
+        totalConsumable = totalConsumable + weightWithQuantity;
       }
       if (item.worn) {
-        totalWorn = totalWorn + weightInGrams;
+        totalWorn = totalWorn + weightWithQuantity;
       }
     });
 
@@ -501,8 +509,9 @@ export function convertListToCsvString(list: GearList) {
   return papa.unparse(rows);
 }
 
-export function getDisplayUnit(value, unitType) {
-  const num = Number(value);
+export function getDisplayUnit(value, unitType, quantity = '1') {
+  const quantityInt = parseInt(quantity, 10)
+  const num = Number(value) * quantityInt;
 
   if (num >= 1000 && unitType === 'metric') {
     return 'kg';

@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface EditableCellProps {
-  type?: 'text' | 'price' | 'weight';
+  type?: 'text' | 'price' | 'weight' | 'quantity';
   currencyCharacter?: string;
   editMode: boolean;
   children: any;
@@ -87,7 +87,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
   }
 
   const commonProps = {
-    className: classes.input,
     defaultValue: value,
     onBlur: onBlur,
     placeholder: placeholder,
@@ -100,7 +99,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         <Typography component="span" className={classes.currencyCharacter}>
           {currencyCharacter}
         </Typography>
-        <input ref={inputRef} type="number" {...commonProps} />
+        <input className={classes.input + ' hideSteps'} ref={inputRef} type="number" {...commonProps} />
       </span>
     );
   }
@@ -108,6 +107,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   if (type === 'weight') {
     return (
       <input
+        className={classes.input + ' hideSteps'}
         ref={inputRef}
         type="number"
         style={{ textAlign: 'right' }}
@@ -116,8 +116,22 @@ const EditableCell: React.FC<EditableCellProps> = ({
     );
   }
 
+  if (type === 'quantity') {
+    return (
+      <input
+        className={classes.input}
+        ref={inputRef}
+        type="number"
+        min="1"
+        step="1"
+        {...commonProps}
+      />
+    );
+  }
+
   return (
     <input
+      className={classes.input}
       {...commonProps}
       autoFocus={lastAddedId === catId && placeholder === 'Category'}
     />

@@ -18,7 +18,7 @@ import { rowStyles } from '../styles';
 import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store';
-import { showDescriptionsSelector } from '../selectors';
+import { showDescriptionsSelector, showQuantitiesSelector } from '../selectors';
 
 const useStyles = makeStyles(rowStyles);
 
@@ -58,6 +58,10 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
     lastItem,
   } = props;
 
+  const showQuantities = useAppSelector(state =>
+    showQuantitiesSelector(state, listId)
+  );
+
   const showDescriptions = useAppSelector(state =>
     showDescriptionsSelector(state, listId)
   );
@@ -71,69 +75,88 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
   const priceInputRef = React.useRef();
 
   const onNameBlur = useCallback(
-    (e) => dispatch(
-      actions.updateItem({
-        listId,
-        catId,
-        gearId,
-        field: 'name',
-        value: e.target.value,
-      })
-    ),
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'name',
+          value: e.target.value,
+        })
+      ),
     [listId, catId, gearId, dispatch]
-  )
+  );
+
+  const onQuantityBlur = useCallback(
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'quantity',
+          value: e.target.value,
+        })
+      ),
+    [listId, catId, gearId, dispatch]
+  );
 
   const onDescriptionBlur = useCallback(
-    (e) => dispatch(
-      actions.updateItem({
-        listId,
-        catId,
-        gearId,
-        field: 'description',
-        value: e.target.value,
-      })
-    ),
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'description',
+          value: e.target.value,
+        })
+      ),
     [listId, catId, gearId, dispatch]
-  )
+  );
 
   const onPriceBlur = useCallback(
-    (e) => dispatch(
-      actions.updateItem({
-        listId,
-        catId,
-        gearId,
-        field: 'price',
-        value: e.target.value,
-      })
-    ),
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'price',
+          value: e.target.value,
+        })
+      ),
     [listId, catId, gearId, dispatch]
-  )
+  );
 
   const onWeightBlur = useCallback(
-    (e) => dispatch(
-      actions.updateItem({
-        listId,
-        catId,
-        gearId,
-        field: 'weight',
-        value: e.target.value,
-      })
-    ),
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'weight',
+          value: e.target.value,
+        })
+      ),
     [listId, catId, gearId, dispatch]
-  )
+  );
 
   const onUnitChange = useCallback(
-    (e) => dispatch(
-      actions.updateItem({
-        listId,
-        catId,
-        gearId,
-        field: 'unit',
-        value: e.target.value,
-      })
-    ),
+    e =>
+      dispatch(
+        actions.updateItem({
+          listId,
+          catId,
+          gearId,
+          field: 'unit',
+          value: e.target.value,
+        })
+      ),
     [listId, catId, gearId, dispatch]
-  )
+  );
 
   function renderItemName(item: GearItem) {
     if (editMode || !item.hyperlink) {
@@ -177,6 +200,22 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
               dispatch(actions.toggleCheckItem({ listId, catId, gearId }))
             }
           />
+        </div>
+      )}
+      {showQuantities && (
+        <div className={classes.quantity}>
+          <EditableCell
+            type="quantity"
+            placeholder=""
+            editMode={editMode}
+            value={item.quantity || '1'}
+            onBlur={onQuantityBlur}
+          >
+            <>
+            <Typography display="inline">{item.quantity || '1'}</Typography>
+            <span className={classes.times}>&times;</span>
+            </>
+          </EditableCell>
         </div>
       )}
       <div className={classes.name}>
@@ -267,7 +306,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
       )}
       <div className={classes.weight}>
         <EditableCell
-          key={item.id+unitType}
+          key={item.id + unitType}
           type="weight"
           editMode={editMode}
           value={item.weight.toString()}
@@ -275,7 +314,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           inputRef={weightInputRef}
           onBlur={onWeightBlur}
         >
-          <FormatWeight value={item.weight} unit={item.unit} />
+          <FormatWeight value={item.weight} unit={item.unit} quantity={item.quantity}/>
         </EditableCell>
       </div>
       {editMode && (

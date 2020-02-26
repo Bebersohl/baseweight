@@ -50,6 +50,7 @@ export const createBlankList = ({
   showCheckboxes: false,
   showPrices: true,
   showDescriptions: true,
+  showQuantities: true,
   sortCategoriesBy: 'name',
   sortCategoriesDirection: 'custom',
   sortItemsBy: 'name',
@@ -68,12 +69,15 @@ export const gearListsSlice = createSlice({
         state.gearListsMap[listId].userId = action.payload;
       });
     },
-    'editMode/setEditMode': (state, action: PayloadAction<{editMode: boolean, listId?: string}>) => {
+    'editMode/setEditMode': (
+      state,
+      action: PayloadAction<{ editMode: boolean; listId?: string }>
+    ) => {
       const { listId, editMode } = action.payload;
 
-      if(listId && !editMode) {
-        state.gearListsMap[listId].sortCategoriesDirection = 'custom'
-        state.gearListsMap[listId].sortItemsDirection = 'custom'
+      if (listId && !editMode) {
+        state.gearListsMap[listId].sortCategoriesDirection = 'custom';
+        state.gearListsMap[listId].sortItemsDirection = 'custom';
       }
     },
     'user/clearUser': state => {
@@ -154,6 +158,7 @@ export const gearListsSlice = createSlice({
         starred: 'none' as Starred,
         checked: false,
         unit: list.unitType === 'imperial' ? 'oz' : ('g' as Unit),
+        quantity: '1',
       };
 
       list.categories[action.payload.catId].gearItems[
@@ -331,19 +336,15 @@ export const gearListsSlice = createSlice({
         list.categories[catId].gearIds.forEach(gearId => {
           const item = list.categories[catId].gearItems[gearId];
 
-          const weightInGrams = toGrams(item.weight, item.unit)
+          const weightInGrams = toGrams(item.weight, item.unit);
 
-          const targetUnit = toggleUnit(
-            item.unit,
-            unitType
-          )
+          const targetUnit = toggleUnit(item.unit, unitType);
 
-          const targetWeight = fromGrams(weightInGrams, targetUnit)
-          
+          const targetWeight = fromGrams(weightInGrams, targetUnit);
+
           item.unit = targetUnit;
 
           item.weight = toFixed(targetWeight);
-
         });
       });
 
@@ -409,32 +410,24 @@ export const gearListsSlice = createSlice({
 
       list.categoryIds.push(catId);
     },
-    toggleShowCheckboxes: (
+    toggleShowColumn: (
       state,
-      action: PayloadAction<{ listId: string }>
+      action: PayloadAction<{
+        listId: string;
+        column:
+          | 'showPrices'
+          | 'showCheckboxes'
+          | 'showDescriptions'
+          | 'showQuantities';
+      }>
     ) => {
-      const list = state.gearListsMap[action.payload.listId];
+      const { listId, column} = action.payload;
+
+      const list = state.gearListsMap[listId];
 
       list.hasUnsavedData = true;
 
-      list.showCheckboxes = !list.showCheckboxes;
-    },
-    toggleShowPrices: (state, action: PayloadAction<{ listId: string }>) => {
-      const list = state.gearListsMap[action.payload.listId];
-
-      list.hasUnsavedData = true;
-
-      list.showPrices = !list.showPrices;
-    },
-    toggleShowDescriptions: (
-      state,
-      action: PayloadAction<{ listId: string }>
-    ) => {
-      const list = state.gearListsMap[action.payload.listId];
-
-      list.hasUnsavedData = true;
-
-      list.showDescriptions = !list.showDescriptions;
+      list[column] = !list[column];
     },
     toggleCategorySort: (
       state,
@@ -567,11 +560,16 @@ export const gearListsSlice = createSlice({
       state,
       action: PayloadAction<{ message: string; severity: Severity }>
     ) => {},
-    updateList: (state, action: PayloadAction<{list: GearList, unsavedChanges?: boolean}>) => {
+    updateList: (
+      state,
+      action: PayloadAction<{ list: GearList; unsavedChanges?: boolean }>
+    ) => {
       const { list, unsavedChanges } = action.payload;
 
       state.gearListsMap[list.id] = list;
-      state.gearListsMap[list.id].hasUnsavedData = unsavedChanges ? true : false;
+      state.gearListsMap[list.id].hasUnsavedData = unsavedChanges
+        ? true
+        : false;
     },
     unpackLists: (
       state,
@@ -581,6 +579,10 @@ export const gearListsSlice = createSlice({
 
       lists.forEach(list => {
         list.showCheckboxes = false;
+
+        if(list.showQuantities === undefined) {
+          list.showQuantities = true;
+        }
 
         state.gearListsMap[list.id] = list;
 

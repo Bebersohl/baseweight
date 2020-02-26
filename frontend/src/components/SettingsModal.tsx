@@ -7,11 +7,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { UnitType } from '../types';
 import { useDispatch } from 'react-redux';
 import { actions } from '../reducers';
 import { useAppSelector } from '../store';
-import { showDescriptionsSelector } from '../selectors';
+import { showDescriptionsSelector, showQuantitiesSelector } from '../selectors';
 
 const useStyles = makeStyles(theme => ({
   currencyInput: {
@@ -28,7 +27,6 @@ interface SettingsModalProps {
   showCheckboxes: boolean;
   showPrices: boolean;
   currencyCharacter: string;
-  unitType: UnitType;
   listId: string;
   isListOwner: boolean;
 }
@@ -39,7 +37,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   showCheckboxes,
   showPrices,
   currencyCharacter,
-  unitType,
   listId,
   isListOwner,
 }) => {
@@ -49,6 +46,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
   const showDescriptions = useAppSelector(state =>
     showDescriptionsSelector(state, listId)
+  );
+
+  const showQuantities = useAppSelector(state =>
+    showQuantitiesSelector(state, listId)
   );
 
   return (
@@ -86,12 +87,24 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           </>
         )}
         <ListItem>
+          <ListItemText primary="Show quantities" />
+          <ListItemSecondaryAction>
+            <Switch
+              edge="end"
+              onChange={() =>
+                dispatch(actions.toggleShowColumn({ listId, column: 'showQuantities' }))
+              }
+              checked={showQuantities}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
           <ListItemText primary="Show checkboxes" />
           <ListItemSecondaryAction>
             <Switch
               edge="end"
               onChange={() =>
-                dispatch(actions.toggleShowCheckboxes({ listId }))
+                dispatch(actions.toggleShowColumn({ listId, column: 'showCheckboxes' }))
               }
               checked={showCheckboxes}
             />
@@ -102,7 +115,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           <ListItemSecondaryAction>
             <Switch
               edge="end"
-              onChange={() => dispatch(actions.toggleShowPrices({ listId }))}
+              onChange={() => dispatch(actions.toggleShowColumn({ listId, column: 'showPrices' }))}
               checked={showPrices}
             />
           </ListItemSecondaryAction>
@@ -113,7 +126,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             <Switch
               edge="end"
               onChange={() =>
-                dispatch(actions.toggleShowDescriptions({ listId }))
+                dispatch(actions.toggleShowColumn({ listId, column: 'showDescriptions' }))
               }
               checked={showDescriptions}
             />

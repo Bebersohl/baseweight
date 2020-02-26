@@ -11,6 +11,7 @@ export interface GearItem {
   starred: Starred;
   checked: boolean;
   unit: Unit;
+  quantity: string;
 }
 
 export type Alert = {
@@ -39,6 +40,7 @@ export interface GearList {
   showCheckboxes: boolean;
   showPrices: boolean;
   showDescriptions: boolean;
+  showQuantities: boolean;
   sortCategoriesBy: SortBy;
   sortCategoriesDirection: SortDirection;
   sortItemsBy: SortBy;

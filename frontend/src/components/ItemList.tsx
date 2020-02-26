@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Graph from './Graph';
@@ -78,8 +78,6 @@ const ItemList: React.FC<ItemListProps> = props => {
   const userId = useAppSelector(state => state.user.id);
 
   const editMode = useAppSelector(state => state.editMode);
-
-  const theme = useTheme();
 
   const list = useAppSelector(
     state => state.gearLists.gearListsMap[props.listId],
@@ -213,7 +211,7 @@ const ItemList: React.FC<ItemListProps> = props => {
   return (
     <Grid container spacing={3} key={list.id}>
       <Grid item container>
-        <Grid item md={9} sm={12}>
+        <Grid item md={8} sm={12}>
           {!hideHeader && (
             <>
               <EditableCell
@@ -261,7 +259,7 @@ const ItemList: React.FC<ItemListProps> = props => {
         <Grid
           item
           container
-          md={3}
+          md={4}
           sm={12}
           alignItems="center"
           justify="flex-end"
@@ -411,7 +409,6 @@ const ItemList: React.FC<ItemListProps> = props => {
 
       <SettingsModal
         listId={list.id}
-        unitType={list.unitType}
         showCheckboxes={list.showCheckboxes}
         showPrices={list.showPrices}
         isSettingsModalOpen={isSettingsModalOpen}

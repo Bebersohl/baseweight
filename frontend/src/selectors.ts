@@ -34,6 +34,11 @@ export const showDescriptionsSelector = createSelector(
   list => list.showDescriptions
 );
 
+export const showQuantitiesSelector = createSelector(
+  listSelector,
+  list => list.showQuantities
+);
+
 export const unsavedChangesSelector = createSelector(
   listIdsSelector,
   listMapSelector,

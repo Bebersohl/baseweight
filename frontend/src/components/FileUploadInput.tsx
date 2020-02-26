@@ -232,6 +232,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
                 starred: validateStar(row[starred_col]),
                 checked: stringToBool(row[checked_col]),
                 unit: outputUnit,
+                quantity: '1',
               };
 
               if (categoryExistsAlreadyIndex !== -1) {
