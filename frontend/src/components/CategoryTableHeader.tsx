@@ -149,7 +149,7 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
           editMode={editMode}
           selected={sortItemsBy === 'weight'}
           sortDirection={sortItemsDirection}
-          justifyContent="flex-start"
+          justifyContent="flex-end"
           onClick={() =>
             dispatch(
               actions.toggleItemSort({
@@ -159,7 +159,7 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
               })
             )
           }
-          flexDirection="row-reverse"
+          flexDirection="row"
         >
           <Typography align="right" variant="body2">WEIGHT</Typography>
         </SortLabel>
