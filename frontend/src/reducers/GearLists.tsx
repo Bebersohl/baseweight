@@ -262,6 +262,33 @@ export const gearListsSlice = createSlice({
 
       list.categories[catId].gearItems[gearId][field] = value;
     },
+    toggleUnit: (
+      state,
+      action: PayloadAction<{
+        listId: string;
+        catId: string;
+        gearId: string;
+      }>
+    ) => {
+      const { catId, gearId, listId } = action.payload;
+
+      const list = state.gearListsMap[listId];
+
+      list.hasUnsavedData = true;
+
+      const item = list.categories[catId].gearItems[gearId];
+
+      if(item.unit === 'oz') {
+        item.unit = 'lb';
+      } else if (item.unit === 'g') {
+        item.unit = 'kg';
+      } else if (item.unit === 'kg') {
+        item.unit = 'g';
+      } else {
+        item.unit = 'oz';
+      }
+
+    },
     toggleWorn: (
       state,
       action: PayloadAction<{ listId: string; catId: string; gearId: string }>

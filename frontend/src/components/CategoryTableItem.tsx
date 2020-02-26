@@ -9,7 +9,7 @@ import StarredIcon from './StarredIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import EditableCell from './EditableCell';
 import Tooltip from '@material-ui/core/Tooltip';
-import UnitSelect from './UnitSelect';
+import UnitButton from './UnitButton';
 import RowIcon from './RowIcon';
 import { Link } from '@material-ui/core';
 import { GearItem, GearListCategory, UnitType } from '../types';
@@ -145,14 +145,12 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
   );
 
   const onUnitChange = useCallback(
-    e =>
+    () =>
       dispatch(
-        actions.updateItem({
+        actions.toggleUnit({
           listId,
           catId,
           gearId,
-          field: 'unit',
-          value: e.target.value,
         })
       ),
     [listId, catId, gearId, dispatch]
@@ -318,11 +316,10 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
         </EditableCell>
       </div>
       {editMode && (
-        <div className={classes.unitSelect}>
-          <UnitSelect
+        <div className={classes.unitButton}>
+          <UnitButton
             onChange={onUnitChange}
             value={item.unit}
-            unitType={unitType}
           />
         </div>
       )}

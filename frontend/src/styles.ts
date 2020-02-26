@@ -92,8 +92,8 @@ export const rowStyles: any = props => ({
     flexBasis: 80,
     flexShrink: 0,
   },
-  unitSelect: {
-    flexBasis: 45,
+  unitButton: {
+    flexBasis: 35,
     flexShrink: 0,
   },
   delete: {
