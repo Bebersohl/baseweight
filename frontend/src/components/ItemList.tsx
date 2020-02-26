@@ -12,6 +12,7 @@ import {
   downloadFile,
   convertListToCsvString,
   createMarkup,
+  isUserSignedIn,
 } from '../utils';
 import { GearItem } from '../types';
 import CategoryTable from './CategoryTable';
@@ -287,7 +288,13 @@ const ItemList: React.FC<ItemListProps> = props => {
                   'Are you sure you want to delete this list? It cannot be undone.'
                 )
               ) {
-                dispatch(actions.deleteList(list.id));
+                if(isUserSignedIn(userId)) {
+                  return dispatch(actions.deleteList(list.id));
+                }
+
+                dispatch(actions.deleteListState(list.id));
+
+                navigate('/')
               }
             }}
           />

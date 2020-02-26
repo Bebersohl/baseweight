@@ -16,6 +16,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { createTheme } from '../theme';
 import { PaletteType } from '../types'
+import { isUserSignedIn } from '../utils';
 
 const App: React.FC = () => {
   const storedPalleteType = localStorage.getItem('paletteType')
@@ -46,7 +47,7 @@ const App: React.FC = () => {
 
   const snackMessage = useAppSelector(state => state.snackMessage);
 
-  useInterval(() => userId.length > 13 && dispatch(actions.saveLists()), 10000);
+  useInterval(() => isUserSignedIn(userId) && dispatch(actions.saveLists()), 10000);
 
   useBeforeunload(() => {
     if (hasUnsavedChanges) {

@@ -17,6 +17,10 @@ import papa from 'papaparse';
 import insane from 'insane';
 import marked from 'marked';
 
+export function isUserSignedIn(userId) {
+  return userId.length > 13;
+}
+
 export function createMarkup(description) {
   return {
     __html: insane(marked(description)),

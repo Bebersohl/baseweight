@@ -10,6 +10,7 @@ import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { listIdsSelector, listMapSelector } from '../selectors';
 import LoadingContent from '../components/LoadingContent';
+import { isUserSignedIn } from '../utils';
 
 const HomeScreen: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
 
   // show demo if user not signed in or user is signed in and has 0 lists
   useEffect(() => {
-    if (userId !== '' && !(userId.length > 13 && gearListIds.length > 0)) {
+    if (userId !== '' && !(isUserSignedIn(userId)  && gearListIds.length > 0)) {
       dispatch(actions.getList('demo'));
     }
   }, [userId, gearListIds.length, dispatch]);
@@ -43,7 +44,7 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
     return <LoadingContent />;
   }
 
-  if (userId.length > 13 && gearLists[firstListId]) {
+  if (isUserSignedIn(userId) && gearLists[firstListId]) {
     return <ItemList listId={firstListId} />;
   }
 

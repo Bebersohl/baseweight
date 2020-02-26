@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../reducers';
 import { useAppSelector } from '../store';
 import ToggleDarkButton from './ToggleDarkButton';
+import { isUserSignedIn } from '../utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
           </IconButton>
           <div className={classes.space} />
           <ToggleDarkButton paletteType={paletteType} onPaletteTypeChange={onPaletteTypeChange}/>
-          {userId.length > 13 ? (
+          {isUserSignedIn(userId) ? (
             <>
               <IconButton
                 onClick={e => setAnchorMenuEl(e.currentTarget)}
