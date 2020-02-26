@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
     space: {
       flexGrow: 1,
     },
+    accountButton: {
+      textTransform: 'none'
+    }
   })
 );
 
@@ -50,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
   const isSignUpModalOpen = useAppSelector(state => state.modals.signUp);
   const userId = useAppSelector(state => state.user.id);
   const providerId = useAppSelector(state => state.user.providerId);
+  const displayName = useAppSelector(state => state.user.displayName)
 
   const dispatch = useDispatch();
 
@@ -82,15 +86,15 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
           <ToggleDarkButton paletteType={paletteType} onPaletteTypeChange={onPaletteTypeChange}/>
           {isUserSignedIn(userId) ? (
             <>
-              <IconButton
+              <Button
                 onClick={e => setAnchorMenuEl(e.currentTarget)}
-                edge="start"
-                color="inherit"
-                aria-label="account"
                 size="small"
+                color="inherit"
+                startIcon={<AccountCircleIcon />}
+                className={classes.accountButton}
               >
-                <AccountCircleIcon />
-              </IconButton>
+                {displayName}
+              </Button>
               <Menu
                 anchorEl={anchorMenuEl}
                 keepMounted
