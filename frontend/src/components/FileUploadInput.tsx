@@ -52,6 +52,16 @@ function stringToBool(value = '') {
   return !!val;
 }
 
+function validateQuantity(value) {
+  const quantity = parseInt(value, 10);
+
+  if(!quantity) {
+    return "1"
+  }
+
+  return quantity.toString();
+}
+
 const FileUploadInput: React.FC<FileUploadInputProps> = ({
   list,
   onUploadComplete,
@@ -77,87 +87,37 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
 
             const wasColumnFound = result.data[0].map(header => false);
 
-            const name_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('name');
+            const findCol = (cols: any[]) => headers.findIndex((header, index) => {
+              const match = cols.some(col => header.includes(col))
               if (match) {
                 wasColumnFound[index] = true;
               }
               return match;
             });
 
-            const category_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('category');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const desc_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('desc');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const weight_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('weight');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const unit_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('unit');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const url_col: number = headers.findIndex((header, index) => {
-              const match =
-                header.includes('url') || header.includes('hyperlink');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const price_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('price');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const worn_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('worn');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const consumable_col: number = headers.findIndex(
-              (header, index) => {
-                const match = header.includes('consumable');
-                if (match) {
-                  wasColumnFound[index] = true;
-                }
-                return match;
-              }
-            );
-            const checked_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('checked');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
-            const starred_col: number = headers.findIndex((header, index) => {
-              const match = header.includes('starred');
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
+            const name_col: number = findCol(['name'])
+
+            const category_col: number = findCol(['category'])
+
+            const desc_col: number = findCol(['desc'])
+
+            const weight_col: number = findCol(['weight'])
+
+            const unit_col: number = findCol(['unit'])
+            
+            const url_col: number = findCol(['hyperlink', 'url'])
+
+            const price_col: number = findCol(['price'])
+
+            const worn_col: number = findCol(['worn'])
+
+            const consumable_col: number = findCol(['consumable'])
+
+            const checked_col: number = findCol(['checked'])
+
+            const starred_col: number = findCol(['starred'])
+
+            const quantity_col: number = findCol(['quantity', 'qty'])
 
             if (
               name_col === -1 &&
@@ -170,7 +130,8 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
               worn_col === -1 &&
               consumable_col === -1 &&
               checked_col === -1 &&
-              starred_col === -1
+              starred_col === -1 &&
+              quantity_col === -1
             ) {
               return alert('No columns found');
             }
@@ -232,7 +193,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
                 starred: validateStar(row[starred_col]),
                 checked: stringToBool(row[checked_col]),
                 unit: outputUnit,
-                quantity: '1',
+                quantity: validateQuantity(row[quantity_col]),
               };
 
               if (categoryExistsAlreadyIndex !== -1) {
