@@ -4,7 +4,6 @@ import shortid from 'shortid';
 import Row from './Row';
 import FormatCurrency from './FormatCurrency';
 import FormatWeight from './FormatWeight';
-import WeightUnit from './WeightUnit';
 import AddIcon from '@material-ui/icons/Add';
 import { UnitType } from '../types';
 import { rowStyles } from '../styles';
@@ -13,6 +12,8 @@ import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store';
 import { showDescriptionsSelector } from '../selectors';
+import FormatUnit from './FormatUnit';
+import { getDisplayWeight } from '../utils';
 
 const useStyles = makeStyles(rowStyles);
 
@@ -49,6 +50,8 @@ const CategoryTableFooter: React.FC<CategoryTableFooterProps> = ({
 
   const classes = useStyles({ showDescriptions, editMode });
 
+  const [displayTotalWeight, displayTotalUnit] = getDisplayWeight(totalWeight, unitType)
+
   return (
     <Row borderStyle="none" editMode={editMode}>
       {editMode && <div className={classes.drag}></div>}
@@ -80,20 +83,15 @@ const CategoryTableFooter: React.FC<CategoryTableFooterProps> = ({
       )}
       <div
         className={classes.weight}
-        style={{ textAlign: editMode ? 'right' : 'left' }}
       >
         <FormatWeight
-          showUnit={!editMode}
           bold
-          value={totalWeight}
-          unitType={unitType}
+          value={displayTotalWeight}
         />
       </div>
-      {editMode && (
-        <div className={classes.unitButton}>
-          <WeightUnit value={totalWeight} unitType={unitType} />
-        </div>
-      )}
+      <div className={classes.unit}>
+        <FormatUnit bold unit={displayTotalUnit} />
+      </div>
       {editMode && <div className={classes.delete}></div>}
     </Row>
   );

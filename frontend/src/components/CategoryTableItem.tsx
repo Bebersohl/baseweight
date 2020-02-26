@@ -11,6 +11,7 @@ import EditableCell from './EditableCell';
 import Tooltip from '@material-ui/core/Tooltip';
 import UnitButton from './UnitButton';
 import RowIcon from './RowIcon';
+import FormatUnit from './FormatUnit';
 import { Link } from '@material-ui/core';
 import { GearItem, GearListCategory, UnitType } from '../types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -206,12 +207,12 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             type="quantity"
             placeholder=""
             editMode={editMode}
-            value={item.quantity || '1'}
+            value={item.quantity?.toString() || '1'}
             onBlur={onQuantityBlur}
           >
             <>
-            <Typography display="inline">{item.quantity || '1'}</Typography>
-            <span className={classes.times}>&times;</span>
+              <Typography display="inline">{item.quantity || '1'}</Typography>
+              <span className={classes.times}>&times;</span>
             </>
           </EditableCell>
         </div>
@@ -312,15 +313,16 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           inputRef={weightInputRef}
           onBlur={onWeightBlur}
         >
-          <FormatWeight value={item.weight} unit={item.unit} quantity={item.quantity}/>
+          <FormatWeight value={item.weight} />
         </EditableCell>
       </div>
-      {editMode && (
+      {editMode ? (
         <div className={classes.unitButton}>
-          <UnitButton
-            onChange={onUnitChange}
-            value={item.unit}
-          />
+          <UnitButton onChange={onUnitChange} value={item.unit} />
+        </div>
+      ) : (
+        <div className={classes.unit}>
+          <FormatUnit unit={item.unit} />
         </div>
       )}
       {editMode && (

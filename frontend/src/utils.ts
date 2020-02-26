@@ -27,7 +27,7 @@ export function trimZeros(value) {
   return value.replace(/([0-9]+(\.[0-9]+[1-9])?)(\.?0+$)/, '$1');
 }
 
-export function toFixed(value, numOfZeros = 2) {
+export function toFixed(value: number, numOfZeros = 2) {
   return trimZeros(value.toFixed(numOfZeros))
 }
 
@@ -78,7 +78,7 @@ export function getListTotals(
 
     const itemWeight = toGrams(item.weight, item.unit);
 
-    const quantity = parseInt(item.quantity || '1', 10);
+    const quantity = item.quantity || 1;
 
     const weightWithQuantity = itemWeight * quantity;
 
@@ -133,7 +133,9 @@ export function getCategoryTotals(
 
       const weightInGrams = toGrams(item.weight, item.unit);
 
-      const weightWithQuantity = weightInGrams * parseInt(item.quantity || '1', 10);
+      const quantity = item.quantity || 1;
+
+      const weightWithQuantity = weightInGrams * quantity;
 
       totalPrice = totalPrice + toCents(item.price);
       totalWeight = totalWeight + weightWithQuantity;
@@ -294,24 +296,26 @@ export function sortItems(
   return gearIdClones.sort((gearIdA, gearIdB) => {
     let valueA;
     let valueB;
+    const itemA = category.gearItems[gearIdA];
+    const itemB = category.gearItems[gearIdB];
 
     if (sortItemsBy === 'name') {
-      valueA = category.gearItems[gearIdA].name.toUpperCase();
-      valueB = category.gearItems[gearIdB].name.toUpperCase();
+      valueA = itemA.name.toUpperCase();
+      valueB = itemB.name.toUpperCase();
       return compareStrings(valueA, valueB, sortItemsDirection);
     }
 
     if (sortItemsBy === 'weight') {
-      valueA = category.gearItems[gearIdA].weight;
-      valueB = category.gearItems[gearIdB].weight;
-      const unitA = category.gearItems[gearIdA].unit;
-      const unitB = category.gearItems[gearIdB].unit;
+      valueA = Number(itemA.weight) * (itemA.quantity || 1);
+      valueB = Number(itemB.weight) * (itemB.quantity || 1);
+      const unitA = itemA.unit;
+      const unitB = itemB.unit;
       return compareBigs(valueA, valueB, sortItemsDirection, unitA, unitB);
     }
 
     if (sortItemsBy === 'price') {
-      valueA = category.gearItems[gearIdA].price;
-      valueB = category.gearItems[gearIdB].price;
+      valueA = toCents(itemA.price) * (itemA.quantity || 1);
+      valueB = toCents(itemB.price) * (itemB.quantity || 1);
       return compareBigs(valueA, valueB, sortItemsDirection);
     }
 
@@ -509,21 +513,19 @@ export function convertListToCsvString(list: GearList) {
   return papa.unparse(rows);
 }
 
-export function getDisplayUnit(value, unitType, quantity = '1') {
-  const quantityInt = parseInt(quantity, 10)
-  const num = Number(value) * quantityInt;
+export function getDisplayWeight(valueInGrams: number, unitType: UnitType): [number, Unit] {
 
-  if (num >= 1000 && unitType === 'metric') {
-    return 'kg';
+  if (valueInGrams >= 1000 && unitType === 'metric') {
+    return [fromGrams(valueInGrams, 'kg'), 'kg'];
   }
 
-  if (num >= 453.592 && unitType === 'imperial') {
-    return 'lb';
+  if (valueInGrams >= 453.592 && unitType === 'imperial') {
+    return [fromGrams(valueInGrams, 'lb'), 'lb'];
   }
 
   if (unitType === 'imperial') {
-    return 'oz';
+    return [fromGrams(valueInGrams, 'oz'), 'oz'];
   }
 
-  return 'g';
+  return [valueInGrams, 'g'];
 }

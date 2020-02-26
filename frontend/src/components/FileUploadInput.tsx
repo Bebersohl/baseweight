@@ -56,10 +56,10 @@ function validateQuantity(value) {
   const quantity = parseInt(value, 10);
 
   if(!quantity) {
-    return "1"
+    return 1
   }
 
-  return quantity.toString();
+  return quantity;
 }
 
 const FileUploadInput: React.FC<FileUploadInputProps> = ({

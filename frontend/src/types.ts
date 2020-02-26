@@ -11,7 +11,7 @@ export interface GearItem {
   starred: Starred;
   checked: boolean;
   unit: Unit;
-  quantity: string;
+  quantity: number;
 }
 
 export type Alert = {

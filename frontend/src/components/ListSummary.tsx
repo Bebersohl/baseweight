@@ -1,8 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { SortBy, SortDirection, UnitType, GearListCategory } from '../types';
-import { CategoryTotal, ListTotals } from '../utils';
+import {
+  CategoryTotal,
+  ListTotals,
+  getDisplayWeight,
+} from '../utils';
 import FormatWeight from './FormatWeight';
+import FormatUnit from './FormatUnit';
 import Row from './Row';
 import FormatCurrency from './FormatCurrency';
 import Typography from '@material-ui/core/Typography';
@@ -32,6 +37,16 @@ const useStyles = makeStyles({
   },
   weight: {
     flexBasis: 80,
+    flexShrink: 0,
+    textAlign: 'right',
+  },
+  weightHeader: {
+    flexBasis: 105,
+    flexShrink: 0,
+    textAlign: 'right',
+  },
+  unit: {
+    flexBasis: 20,
     flexShrink: 0,
     textAlign: 'right',
   },
@@ -76,6 +91,23 @@ const ListSummary: React.FC<ListSummaryProps> = ({
 
   const dispatch = useDispatch();
 
+  const [totalWeight, totalWeightUnit] = getDisplayWeight(
+    listTotals.totalWeight,
+    unitType
+  );
+  const [consumableWeight, consumableWeightUnit] = getDisplayWeight(
+    listTotals.consumableWeight,
+    unitType
+  );
+  const [wornWeight, wornWeightUnit] = getDisplayWeight(
+    listTotals.wornWeight,
+    unitType
+  );
+  const [baseWeight, baseWeightUnit] = getDisplayWeight(
+    listTotals.baseWeight,
+    unitType
+  );
+
   return (
     <div className={classes.root}>
       <Row borderStyle="solid">
@@ -119,7 +151,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
             </SortLabel>
           </div>
         )}
-        <div className={classes.weight}>
+        <div className={classes.weightHeader}>
           <SortLabel
             editMode={editMode}
             selected={sortCategoriesBy === 'weight'}
@@ -143,6 +175,11 @@ const ListSummary: React.FC<ListSummaryProps> = ({
 
         const { totalPrice, totalWeight } = categoryTotals[catId];
 
+        const [displayWeight, displayUnit] = getDisplayWeight(
+          totalWeight,
+          unitType
+        );
+
         return (
           <Row
             key={catId}
@@ -164,7 +201,10 @@ const ListSummary: React.FC<ListSummaryProps> = ({
               </div>
             )}
             <div className={classes.weight}>
-              <FormatWeight value={totalWeight} unitType={unitType} />
+              <FormatWeight value={displayWeight} />
+            </div>
+            <div className={classes.unit}>
+              <FormatUnit unit={displayUnit} />
             </div>
           </Row>
         );
@@ -182,7 +222,10 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           </div>
         )}
         <div className={classes.weight}>
-          <FormatWeight value={listTotals.totalWeight} unitType={unitType} />
+          <FormatWeight value={totalWeight} />
+        </div>
+        <div className={classes.unit}>
+          <FormatUnit unit={totalWeightUnit} />
         </div>
       </Row>
 
@@ -192,10 +235,10 @@ const ListSummary: React.FC<ListSummaryProps> = ({
         </div>
         {showPrices && <div className={classes.price}></div>}
         <div className={classes.weight}>
-          <FormatWeight
-            value={listTotals.consumableWeight}
-            unitType={unitType}
-          />
+          <FormatWeight value={consumableWeight} />
+        </div>
+        <div className={classes.unit}>
+          <FormatUnit unit={consumableWeightUnit} />
         </div>
       </Row>
 
@@ -205,7 +248,10 @@ const ListSummary: React.FC<ListSummaryProps> = ({
         </div>
         {showPrices && <div className={classes.price}></div>}
         <div className={classes.weight}>
-          <FormatWeight value={listTotals.wornWeight} unitType={unitType} />
+          <FormatWeight value={wornWeight} />
+        </div>
+        <div className={classes.unit}>
+          <FormatUnit unit={wornWeightUnit} />
         </div>
       </Row>
 
@@ -217,11 +263,10 @@ const ListSummary: React.FC<ListSummaryProps> = ({
         </div>
         {showPrices && <div className={classes.price}></div>}
         <div className={classes.weight}>
-          <FormatWeight
-            bold
-            value={listTotals.baseWeight}
-            unitType={unitType}
-          />
+          <FormatWeight bold value={baseWeight} />
+        </div>
+        <div className={classes.unit}>
+          <FormatUnit unit={baseWeightUnit} />
         </div>
       </Row>
     </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { toFixed } from '../utils';
 import { makeStyles } from '@material-ui/core/styles';
+import { Unit } from '../types';
 
 const useStyles: any = makeStyles((theme): any => ({
   text: (props): any => ({
@@ -10,24 +10,22 @@ const useStyles: any = makeStyles((theme): any => ({
   }),
 }));
 
-interface FormatWeightProps {
-  value: string | number;
+interface FormatUnitProps {
+  unit: Unit
   bold?: boolean;
 }
 
-const FormatWeight: React.FC<FormatWeightProps> = ({
-  value,
+const FormatUnit: React.FC<FormatUnitProps> = ({
+  unit,
   bold = false,
 }) => {
   const classes = useStyles({ bold });
 
-  const weight = typeof value === 'string' ? value : toFixed(value)
-
   return (
     <Typography className={classes.text} component="span" noWrap>
-      {weight}
+      {unit}
     </Typography>
   );
 };
 
-export default React.memo(FormatWeight);
+export default React.memo(FormatUnit);

@@ -91,6 +91,16 @@ export const rowStyles: any = props => ({
     ...hideScroll,
     flexBasis: 80,
     flexShrink: 0,
+    textAlign: 'right',
+  },
+  weightHeader: {
+    flexBasis: 100,
+    flexShrink: 0,
+  },
+  unit: {
+    flexBasis: 15,
+    flexShrink: 0,
+    textAlign: 'right',
   },
   unitButton: {
     flexBasis: 35,

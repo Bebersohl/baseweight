@@ -158,7 +158,7 @@ export const gearListsSlice = createSlice({
         starred: 'none' as Starred,
         checked: false,
         unit: list.unitType === 'imperial' ? 'oz' : ('g' as Unit),
-        quantity: '1',
+        quantity: 1,
       };
 
       list.categories[action.payload.catId].gearItems[

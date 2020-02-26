@@ -144,11 +144,12 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
           </SortLabel>
         </div>
       )}
-      <div className={classes.weight} style={{ textAlign: 'right' }}>
+      <div className={classes.weightHeader}>
         <SortLabel
           editMode={editMode}
           selected={sortItemsBy === 'weight'}
           sortDirection={sortItemsDirection}
+          justifyContent="flex-start"
           onClick={() =>
             dispatch(
               actions.toggleItemSort({
