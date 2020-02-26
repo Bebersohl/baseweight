@@ -161,7 +161,7 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
           }
           flexDirection="row-reverse"
         >
-          <Typography variant="body2">WEIGHT</Typography>
+          <Typography align="right" variant="body2">WEIGHT</Typography>
         </SortLabel>
       </div>
       {editMode && <div className={classes.unitButton}></div>}

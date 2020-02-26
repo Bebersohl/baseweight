@@ -93,10 +93,10 @@ export const rowStyles: any = props => ({
     flexShrink: 0,
     textAlign: 'right',
   },
-  weightHeader: {
-    flexBasis: 100,
+  weightHeader: props => ({
+    flexBasis: props.editMode ? 80 : 100,
     flexShrink: 0,
-  },
+  }),
   unit: {
     flexBasis: 15,
     flexShrink: 0,
@@ -105,6 +105,8 @@ export const rowStyles: any = props => ({
   unitButton: {
     flexBasis: 35,
     flexShrink: 0,
+    display: 'flex',
+    justifyContent: 'center'
   },
   delete: {
     flexBasis: 17,
