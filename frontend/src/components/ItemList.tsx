@@ -37,6 +37,7 @@ import { useAppSelector } from '../store';
 import { useDispatch, shallowEqual } from 'react-redux';
 import { actions } from '../reducers';
 import { navigate } from '@reach/router';
+import { Tabs, Tab, useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   unitTypeButton: {
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   subtitle: {
-   color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   signInWarning: {
     color: theme.palette.error.main,
@@ -88,9 +89,14 @@ const ItemList: React.FC<ItemListProps> = props => {
     shallowEqual
   );
 
+  const showTabs = useMediaQuery('(max-width:500px)');
+
   const { hideHeader = false } = props;
 
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
+
+  const [tabIndex, setTabIndex] = useState(0);
+
   const [hyperlinkItem, setHyperlinkItem] = useState<{
     gearItem: GearItem;
     catId: string;
@@ -291,13 +297,13 @@ const ItemList: React.FC<ItemListProps> = props => {
                   'Are you sure you want to delete this list? It cannot be undone.'
                 )
               ) {
-                if(isUserSignedIn(userId)) {
+                if (isUserSignedIn(userId)) {
                   return dispatch(actions.deleteList(list.id));
                 }
 
                 dispatch(actions.deleteListState(list.id));
 
-                navigate('/')
+                navigate('/');
               }
             }}
           />
@@ -346,6 +352,20 @@ const ItemList: React.FC<ItemListProps> = props => {
         </Grid>
       </Grid>
       <Grid item container spacing={3}>
+        {showTabs && (
+          <Grid item xs={12}>
+            <Tabs
+              value={tabIndex}
+              onChange={(e, index) => setTabIndex(index)}
+              indicatorColor="secondary"
+              textColor="secondary"
+              variant="fullWidth"
+            >
+              <Tab label="Chart" />
+              <Tab label="Graph" />
+            </Tabs>
+          </Grid>
+        )}
         <Grid
           item
           container
@@ -365,12 +385,14 @@ const ItemList: React.FC<ItemListProps> = props => {
             categories={list.categories}
             currencyCharacter={list.currencyCharacter}
             unitType={list.unitType}
+            hide={tabIndex !== 0 && showTabs}
           />
           <Graph
             categoryTotals={categoryTotals}
             listTotals={listTotals}
             sortedCategoryIds={sortedCategoryIds}
             categories={list.categories}
+            hide={tabIndex !== 1 && showTabs}
           />
         </Grid>
         <Grid item container md={12} lg={5}>

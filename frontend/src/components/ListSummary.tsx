@@ -1,11 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { SortBy, SortDirection, UnitType, GearListCategory } from '../types';
-import {
-  CategoryTotal,
-  ListTotals,
-  getDisplayWeight,
-} from '../utils';
+import { CategoryTotal, ListTotals, getDisplayWeight } from '../utils';
 import FormatWeight from './FormatWeight';
 import FormatUnit from './FormatUnit';
 import Row from './Row';
@@ -16,48 +12,54 @@ import SortLabel from './SortLabel';
 import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 
-const useStyles = makeStyles({
-  root: (props: any) => ({
-    flexGrow: 1,
-    maxWidth: props.showPrices ? 420 : 335,
-    minWidth: 275,
-  }),
-  category: {
-    maxWidth: 250,
-    flexGrow: 1,
-    minWidth: 100,
-    flexShrink: 1,
-    flexBasis: 180,
-    overflow: 'hidden',
-  },
-  price: {
-    flexBasis: 80,
-    flexShrink: 0,
-    textAlign: 'left',
-  },
-  weight: {
-    flexBasis: 80,
-    flexShrink: 0,
-    textAlign: 'right',
-  },
-  weightHeader: {
-    flexBasis: 105,
-    flexShrink: 0,
-    textAlign: 'right',
-  },
-  unit: {
-    flexBasis: 20,
-    flexShrink: 0,
-    textAlign: 'right',
-  },
-  total: {
-    maxWidth: 250,
-    minWidth: 100,
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 180,
-    textAlign: 'right',
-  },
+const useStyles = makeStyles(() => {
+
+  return {
+    root: (props: any) => ({
+      flexGrow: props.hide ? 0 : 1,
+      maxWidth: 470,
+      minWidth: props.hide ? 0 : 275,
+    }),
+    category: (props: any) => ({
+      flexGrow: props.hide ? 0 : 1,
+      minWidth: 100,
+      flexShrink: 1,
+      flexBasis: 180,
+      overflow: 'hidden',
+    }),
+    price: (props: any) => ({
+      flexBasis: 70,
+      flexShrink: 0,
+      textAlign: 'left',
+      display: props.hide ? 'none' : 'block'
+    }),
+    weight: (props: any) => ({
+      flexBasis: 51,
+      flexShrink: 0,
+      textAlign: 'right',
+      display: props.hide ? 'none' : 'block'
+    }),
+    weightHeader: (props: any) => ({
+      flexBasis: 71,
+      flexShrink: 0,
+      textAlign: 'right',
+      display: props.hide ? 'none' : 'block'
+    }),
+    unit: (props: any) => ({
+      flexBasis: 15,
+      flexShrink: 0,
+      textAlign: 'right',
+      display: props.hide ? 'none' : 'block'
+    }),
+    total: (props: any) => ({
+      minWidth: 100,
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 180,
+      textAlign: 'right',
+      display: props.hide ? 'hidden' : 'block',
+    }),
+  };
 });
 
 interface ListSummaryProps {
@@ -72,6 +74,7 @@ interface ListSummaryProps {
   categories: { [key: string]: GearListCategory };
   currencyCharacter: string;
   unitType: UnitType;
+  hide: boolean;
 }
 
 const ListSummary: React.FC<ListSummaryProps> = ({
@@ -86,8 +89,9 @@ const ListSummary: React.FC<ListSummaryProps> = ({
   categories,
   currencyCharacter,
   unitType,
+  hide,
 }) => {
-  const classes = useStyles({ showPrices });
+  const classes = useStyles({ showPrices, hide });
 
   const dispatch = useDispatch();
 
@@ -209,66 +213,68 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           </Row>
         );
       })}
-      <Row>
-        <div className={classes.total}>
-          <Typography variant="body2">TOTAL</Typography>
-        </div>
-        {showPrices && (
-          <div className={classes.price}>
-            <FormatCurrency
-              currencyCharacter={currencyCharacter}
-              value={listTotals.totalPrice}
-            />
+      <div style={{ display: hide ? 'none' : 'block' }}>
+        <Row>
+          <div className={classes.total}>
+            <Typography variant="body2">TOTAL</Typography>
           </div>
-        )}
-        <div className={classes.weight}>
-          <FormatWeight value={totalWeight} />
-        </div>
-        <div className={classes.unit}>
-          <FormatUnit unit={totalWeightUnit} />
-        </div>
-      </Row>
+          {showPrices && (
+            <div className={classes.price}>
+              <FormatCurrency
+                currencyCharacter={currencyCharacter}
+                value={listTotals.totalPrice}
+              />
+            </div>
+          )}
+          <div className={classes.weight}>
+            <FormatWeight value={totalWeight} />
+          </div>
+          <div className={classes.unit}>
+            <FormatUnit unit={totalWeightUnit} />
+          </div>
+        </Row>
 
-      <Row>
-        <div className={classes.total}>
-          <Typography variant="body2">CONSUMABLE</Typography>
-        </div>
-        {showPrices && <div className={classes.price}></div>}
-        <div className={classes.weight}>
-          <FormatWeight value={consumableWeight} />
-        </div>
-        <div className={classes.unit}>
-          <FormatUnit unit={consumableWeightUnit} />
-        </div>
-      </Row>
+        <Row>
+          <div className={classes.total}>
+            <Typography variant="body2">CONSUMABLE</Typography>
+          </div>
+          {showPrices && <div className={classes.price}></div>}
+          <div className={classes.weight}>
+            <FormatWeight value={consumableWeight} />
+          </div>
+          <div className={classes.unit}>
+            <FormatUnit unit={consumableWeightUnit} />
+          </div>
+        </Row>
 
-      <Row>
-        <div className={classes.total}>
-          <Typography variant="body2">WORN</Typography>
-        </div>
-        {showPrices && <div className={classes.price}></div>}
-        <div className={classes.weight}>
-          <FormatWeight value={wornWeight} />
-        </div>
-        <div className={classes.unit}>
-          <FormatUnit unit={wornWeightUnit} />
-        </div>
-      </Row>
+        <Row>
+          <div className={classes.total}>
+            <Typography variant="body2">WORN</Typography>
+          </div>
+          {showPrices && <div className={classes.price}></div>}
+          <div className={classes.weight}>
+            <FormatWeight value={wornWeight} />
+          </div>
+          <div className={classes.unit}>
+            <FormatUnit unit={wornWeightUnit} />
+          </div>
+        </Row>
 
-      <Row>
-        <div className={classes.total}>
-          <Typography style={{ fontWeight: 600 }} variant="body2">
-            BASE WEIGHT
-          </Typography>
-        </div>
-        {showPrices && <div className={classes.price}></div>}
-        <div className={classes.weight}>
-          <FormatWeight bold value={baseWeight} />
-        </div>
-        <div className={classes.unit}>
-          <FormatUnit unit={baseWeightUnit} />
-        </div>
-      </Row>
+        <Row>
+          <div className={classes.total}>
+            <Typography style={{ fontWeight: 600 }} variant="body2">
+              BASE WEIGHT
+            </Typography>
+          </div>
+          {showPrices && <div className={classes.price}></div>}
+          <div className={classes.weight}>
+            <FormatWeight bold value={baseWeight} />
+          </div>
+          <div className={classes.unit}>
+            <FormatUnit unit={baseWeightUnit} />
+          </div>
+        </Row>
+      </div>
     </div>
   );
 };

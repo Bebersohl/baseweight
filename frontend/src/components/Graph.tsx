@@ -7,17 +7,19 @@ import FormatPercent from '../components/FormatPercent';
 import Grow from '@material-ui/core/Grow';
 import Tooltip from '@material-ui/core/Tooltip';
 import Color from 'color';
-import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  graph: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: 22,
-    paddingLeft: 5,
-    minWidth: 150,
-    maxWidth: 325,
-    flexGrow: 1,
+  graph: (props: any) => {
+    console.log('props', props);
+    return {
+      display: props.hide ? 'none' : 'flex',
+      flexDirection: 'column',
+      marginTop: 22,
+      paddingLeft: 5,
+      minWidth: 150,
+      maxWidth: 325,
+      flexGrow: 1,
+    };
   },
   bar: {
     ...theme.typography.body1,
@@ -44,6 +46,7 @@ interface GraphProps {
   listTotals: ListTotals;
   sortedCategoryIds: string[];
   categories: { [key: string]: GearListCategory };
+  hide: boolean;
 }
 
 const Graph: React.FC<GraphProps> = ({
@@ -51,17 +54,13 @@ const Graph: React.FC<GraphProps> = ({
   listTotals,
   sortedCategoryIds,
   categories,
+  hide,
 }) => {
+  console.log('hide', hide);
 
   const theme = useTheme();
 
-  const showGraph = useMediaQuery('(max-width:425px)');
-
-  const classes = useStyles({});
-
-  if (showGraph) {
-    return <></>;
-  }
+  const classes = useStyles({ hide });
 
   const maxCatId = sortedCategoryIds.length
     ? sortedCategoryIds.reduce((acc, currCatId) => {
@@ -117,7 +116,9 @@ const Graph: React.FC<GraphProps> = ({
 
         const categoryColor =
           theme.palette.type === 'light'
-            ? Color(category.color).lighten(0.25).hex()
+            ? Color(category.color)
+                .lighten(0.25)
+                .hex()
             : category.color;
 
         const barStyle = {

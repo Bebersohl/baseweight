@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { blue, red, purple } from '@material-ui/core/colors';
 
 const lightMode = {
@@ -56,15 +56,19 @@ const common = {
   },
 }
 export const createTheme = (paletteType) => {
+  let theme = {};
+
   if(paletteType === 'dark') {
-    return createMuiTheme({
+    theme = {
       ...common,
       ...darkMode
-    } as any)
+    }
+  } else {
+    theme = {
+      ...common,
+      ...lightMode,
+    }
   }
 
-  return createMuiTheme({
-    ...common,
-    ...lightMode,
-  } as any)
+  return responsiveFontSizes(createMuiTheme(theme))
 }
