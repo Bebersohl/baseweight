@@ -65,6 +65,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({
           variant="h6"
           href="#"
           onClick={() => {
+            dispatch(actions.setEditMode({ editMode: false }))
             navigate('/');
             onDrawerClose();
           }}
