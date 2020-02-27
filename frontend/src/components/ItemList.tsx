@@ -39,6 +39,9 @@ import { actions } from '../reducers';
 import { navigate } from '@reach/router';
 
 const useStyles = makeStyles(theme => ({
+  unitTypeButton: {
+    width: 75,
+  },
   viewDescription: {
     '& a': {
       color: theme.palette.primary.main,
@@ -49,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   subtitle: {
-    color: theme.palette.grey[500],
+   color: theme.palette.text.secondary
   },
   signInWarning: {
     color: theme.palette.error.main,
@@ -61,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     outline: 'none',
     width: '100%',
-    borderColor: theme.palette.divider,
+    borderColor: theme.palette.grey[700],
     borderRadius: 5,
   },
 }));
@@ -311,7 +314,6 @@ const ItemList: React.FC<ItemListProps> = props => {
           {isListOwner && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch
-                // color={theme.palette.type === 'light' ? 'secondary' : 'secondary'}
                 color="secondary"
                 size="small"
                 checked={editMode}
@@ -329,6 +331,7 @@ const ItemList: React.FC<ItemListProps> = props => {
           )}
           <Button
             color="secondary"
+            className={classes.unitTypeButton}
             onClick={e =>
               dispatch(
                 actions.updateUnitType({

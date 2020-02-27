@@ -109,7 +109,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({
 
               navigateToList(listId);
             }}
-            variant="outlined"
+            variant="contained"
             fullWidth
             color="secondary"
           >

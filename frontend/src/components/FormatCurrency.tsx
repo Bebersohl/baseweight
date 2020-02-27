@@ -6,7 +6,6 @@ import { fromCents } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   currencyCharacter: (props: any): any => ({
-    color: theme.palette.grey[500],
     fontWeight: props.bold ? 600 : theme.typography.body1.fontWeight,
   }),
   text: (props: any): any => ({

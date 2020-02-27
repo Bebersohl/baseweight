@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { GearListCategory } from '../types';
 import { CategoryTotal, ListTotals, toFixed } from '../utils';
 import FormatPercent from '../components/FormatPercent';
@@ -52,6 +52,9 @@ const Graph: React.FC<GraphProps> = ({
   sortedCategoryIds,
   categories,
 }) => {
+
+  const theme = useTheme();
+
   const showGraph = useMediaQuery('(max-width:425px)');
 
   const classes = useStyles({});
@@ -112,17 +115,22 @@ const Graph: React.FC<GraphProps> = ({
                 currentCatTotals.totalWeight) *
               100;
 
+        const categoryColor =
+          theme.palette.type === 'light'
+            ? Color(category.color).lighten(0.25).hex()
+            : category.color;
+
         const barStyle = {
           width: barWidth + '%',
-          backgroundColor: category.color,
+          backgroundColor: categoryColor,
         };
 
-        const darkenedCatColor = Color(category.color).darken(0.2);
-        const lightenedCatColor = Color(category.color).lighten(0.2);
+        const darkenedCatColor = Color(categoryColor).darken(0.2);
+        const lightenedCatColor = Color(categoryColor).lighten(0.2);
 
         const wornBarStyle = {
           width: wornWidth + '%',
-          backgroundColor: category.color,
+          backgroundColor: categoryColor,
           height: 22,
           background: `repeating-linear-gradient(
             45deg,
@@ -135,7 +143,7 @@ const Graph: React.FC<GraphProps> = ({
 
         const consumableBarStyle = {
           width: consumableWidth + '%',
-          backgroundColor: 'pink',
+          backgroundColor: categoryColor,
           height: 22,
           background: `repeating-linear-gradient(
             -45deg,

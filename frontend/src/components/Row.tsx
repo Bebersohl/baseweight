@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
 
     return {
       '& .hiddenIcon': props => ({
-        color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[700],
+        color: theme.palette.text.secondary,
         cursor: props.editMode ? 'pointer' : 'default',
         display: 'none',
       }),
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
       borderBottom:
         props.borderStyle === 'none'
           ? 'none'
-          : `1px ${props.borderStyle} ${theme.palette.divider}`,
+          : `1px ${props.borderStyle} ${theme.palette.grey[700]}`,
       padding: '2.5px 0 2.5px 0',
       flexDirection: 'row',
       '& div': {

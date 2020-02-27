@@ -4,9 +4,6 @@ import AutoComplete from './AutoComplete';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
-  currencyCharacter: {
-    color: theme.palette.grey[500],
-  },
   currencyWrapper: {
     display: 'flex',
     alignItems: 'baseline',
@@ -21,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     outline: 'none',
     boxSizing: 'border-box',
     '&:hover, &:focus': {
-      borderBottom: `2px solid ${theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[700]}`,
+      borderBottom: `1px solid ${theme.palette.text.secondary}`,
     },
     width: '100%',
   }),
@@ -96,7 +93,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   if (type === 'price') {
     return (
       <span className={classes.currencyWrapper}>
-        <Typography component="span" className={classes.currencyCharacter}>
+        <Typography component="span">
           {currencyCharacter}
         </Typography>
         <input className={classes.input + ' hideSteps'} ref={inputRef} type="number" {...commonProps} />

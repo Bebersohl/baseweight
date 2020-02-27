@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { sortItems, getDragStyle } from '../utils';
 import {
   GearItem,
@@ -63,6 +63,8 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
     totalWeight,
   } = props;
 
+  const theme = useTheme();
+
   const isEveryCheckboxChecked =
     category.gearIds.length === 0
       ? false
@@ -101,7 +103,8 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
               {...draggableProvided.draggableProps}
               style={getDragStyle(
                 draggableSnapshot.isDragging,
-                draggableProvided.draggableProps.style
+                draggableProvided.draggableProps.style,
+                theme
               )}
             >
               <CategoryTableItem
@@ -148,7 +151,8 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
           {...draggableProvided.draggableProps}
           style={getDragStyle(
             draggableSnapshot.isDragging,
-            draggableProvided.draggableProps.style
+            draggableProvided.draggableProps.style,
+            theme
           )}
         >
           <div className={classes.container}>

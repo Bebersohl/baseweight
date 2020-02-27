@@ -1,3 +1,4 @@
+import { Theme } from '@material-ui/core/styles';
 import { auth } from './firebase';
 import { CATEGORY_COLORS } from './constants';
 import {
@@ -12,7 +13,6 @@ import {
 } from './types';
 
 import cloneDeep from 'clone-deep';
-import grey from '@material-ui/core/colors/grey';
 import papa from 'papaparse';
 import insane from 'insane';
 import marked from 'marked';
@@ -102,13 +102,15 @@ export function getListTotals(
   }, init);
 }
 
-export function getDragStyle(isDragging, draggableStyle) {
+export function getDragStyle(isDragging, draggableStyle, theme: Theme) {
+  const borderColor = theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.common.black
+  const backgroundColor = theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[900]
   return {
     ...draggableStyle,
     userSelect: 'none',
     ...(isDragging && {
-      border: '2px solid black',
-      backgroundColor: grey[900],
+      border: `2px solid ${borderColor}`,
+      backgroundColor,
     }),
   };
 }

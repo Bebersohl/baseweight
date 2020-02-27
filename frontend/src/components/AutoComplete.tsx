@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import * as colors from '@material-ui/core/colors';
 import { useAppSelector } from '../store';
-import { getGearLocker, unitTypeSelector, gearSuggestionsSelector } from '../selectors';
+import {
+  getGearLocker,
+  unitTypeSelector,
+  gearSuggestionsSelector,
+} from '../selectors';
 import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { GearSuggestion } from '../types';
 import { fromGrams, convertUnitToListType, toGrams, toFixed } from '../utils';
+import { useTheme } from '@material-ui/core';
 
 interface AutoCompleteProps {
   value: string;
@@ -35,9 +39,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
 }) => {
   const [text, setText] = useState(value);
 
-  const unitType = useAppSelector(state =>
-    unitTypeSelector(state, listId)
-  );
+  const unitType = useAppSelector(state => unitTypeSelector(state, listId));
 
   const dispatch = useDispatch();
 
@@ -46,6 +48,8 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   const gearLocker = useAppSelector(state => {
     return getGearLocker(state, [listId, 'demo']);
   });
+
+  const theme = useTheme();
 
   return (
     <Autocomplete
@@ -77,7 +81,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
             gearId,
             suggestion,
             weight: formattedTargetWeight,
-            unit: targetUnit
+            unit: targetUnit,
           })
         );
       }}
@@ -123,9 +127,13 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
               <span
                 key={index}
                 style={{
-                  color: option.serverSuggestion ? 'pink' : 'white',
+                  color: option.serverSuggestion
+                    ? theme.palette.text.secondary
+                    : theme.palette.text.primary,
                   backgroundColor: part.highlight
-                    ? colors.pink[900]
+                    ? theme.palette.type === 'light'
+                      ? theme.palette.secondary.light
+                      : theme.palette.secondary.main
                     : 'transparent',
                 }}
               >
@@ -137,7 +145,11 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
       }}
       renderInput={(params: any) => {
         const { ref } = params.InputProps;
-        const { className, onBlur: onInputBlur, ...inputProps } = params.inputProps;
+        const {
+          className,
+          onBlur: onInputBlur,
+          ...inputProps
+        } = params.inputProps;
 
         return (
           <div ref={ref}>
@@ -147,9 +159,9 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
               className={inputStyles}
               placeholder="name"
               autoFocus={lastAddedId === gearId}
-              onBlur={(e) => {
-                onInputBlur(e)
-                onBlur(e)
+              onBlur={e => {
+                onInputBlur(e);
+                onBlur(e);
               }}
               autoComplete="new-password"
             />

@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { blue, red } from '@material-ui/core/colors';
+import { blue, red, purple } from '@material-ui/core/colors';
 
 const lightMode = {
   palette: {
@@ -7,12 +7,11 @@ const lightMode = {
       paper: '#fff',
       default: "#f7f8fc"
     },
-    // primary: {
-    //   main: prefersDarkMode ? blue[300] : indigo[500],
-    // },
-    // secondary: {
-    //   main: prefersDarkMode ? red[300] : pink[500],
-    // },
+    secondary: {
+      light: purple[200],
+      main: purple[500],
+      dark: purple[700],
+    },
     type: 'light',
   },
 }
@@ -20,10 +19,14 @@ const lightMode = {
 const darkMode = {
   palette: {
     primary: {
+      light: blue[100],
       main: blue[300],
+      dark: blue[500],
     },
     secondary: {
+      light: red[100],
       main: red[300],
+      dark: red[500]
     },
     type: 'dark',
   },
@@ -64,5 +67,4 @@ export const createTheme = (paletteType) => {
     ...common,
     ...lightMode,
   } as any)
-
 }

@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { toFixed } from '../utils';
 
 const useStyles = makeStyles(theme => ({
-  percent: {
+  percent: (props: any) => ({
     pointerEvents: 'none',
-  },
+    color: theme.palette.text.primary
+  }),
 }));
 
 interface FormatPercentProps {
