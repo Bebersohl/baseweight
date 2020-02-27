@@ -10,7 +10,6 @@ import Color from 'color';
 
 const useStyles = makeStyles(theme => ({
   graph: (props: any) => {
-    console.log('props', props);
     return {
       display: props.hide ? 'none' : 'flex',
       flexDirection: 'column',
@@ -56,7 +55,6 @@ const Graph: React.FC<GraphProps> = ({
   categories,
   hide,
 }) => {
-  console.log('hide', hide);
 
   const theme = useTheme();
 
