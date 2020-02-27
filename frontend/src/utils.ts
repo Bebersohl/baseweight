@@ -82,7 +82,7 @@ export function getListTotals(
 
     const itemWeight = toGrams(item.weight, item.unit);
 
-    const quantity = item.quantity || 1;
+    const quantity = item.quantity ?? 1;
 
     const weightWithQuantity = itemWeight * quantity;
 
@@ -139,11 +139,12 @@ export function getCategoryTotals(
 
       const weightInGrams = toGrams(item.weight, item.unit);
 
-      const quantity = item.quantity || 1;
+      const quantity = item.quantity ?? 1;
 
       const weightWithQuantity = weightInGrams * quantity;
 
-      totalPrice = totalPrice + toCents(item.price);
+      totalPrice = totalPrice + (toCents(item.price) * quantity);
+
       totalWeight = totalWeight + weightWithQuantity;
       if (item.consumable) {
         totalConsumable = totalConsumable + weightWithQuantity;
@@ -312,16 +313,16 @@ export function sortItems(
     }
 
     if (sortItemsBy === 'weight') {
-      valueA = Number(itemA.weight) * (itemA.quantity || 1);
-      valueB = Number(itemB.weight) * (itemB.quantity || 1);
+      valueA = Number(itemA.weight) * (itemA.quantity ?? 1);
+      valueB = Number(itemB.weight) * (itemB.quantity ?? 1);
       const unitA = itemA.unit;
       const unitB = itemB.unit;
       return compareBigs(valueA, valueB, sortItemsDirection, unitA, unitB);
     }
 
     if (sortItemsBy === 'price') {
-      valueA = toCents(itemA.price) * (itemA.quantity || 1);
-      valueB = toCents(itemB.price) * (itemB.quantity || 1);
+      valueA = toCents(itemA.price) * (itemA.quantity ?? 1);
+      valueB = toCents(itemB.price) * (itemB.quantity ?? 1);
       return compareBigs(valueA, valueB, sortItemsDirection);
     }
 
