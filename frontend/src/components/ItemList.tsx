@@ -353,7 +353,7 @@ const ItemList: React.FC<ItemListProps> = props => {
       </Grid>
       <Grid item container spacing={3}>
         {showTabs && (
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ padding: 0 }}>
             <Tabs
               value={tabIndex}
               onChange={(e, index) => setTabIndex(index)}
