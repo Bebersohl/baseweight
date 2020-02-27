@@ -15,13 +15,7 @@ import CategoryTableItem from './CategoryTableItem';
 import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  container: (props: any) => ({
-    overflowX: props.tableScroll ? 'auto' : 'visible',
-    overflowY: 'hidden',
-    whiteSpace: 'nowrap',
-    paddingBottom: 5,
-    marginBottom: 25,
-  }),
+
 }));
 
 interface CategoryTableProps {
@@ -74,9 +68,9 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
     isEveryCheckboxChecked
   );
 
-  const tableScroll = useMediaQuery('(max-width:550px)');
+  // const tableScroll = useMediaQuery('(max-width:550px)');
 
-  const classes = useStyles({ editMode, tableScroll });
+  const classes = useStyles();
 
   const [lastAddedId, setLastAddedId] = useState('');
 
@@ -155,7 +149,7 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
             theme
           )}
         >
-          <div className={classes.container}>
+          <>
             <CategoryTableHeader
               editMode={editMode}
               catId={catId}
@@ -185,7 +179,7 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
               totalWeight={totalWeight}
               catId={catId}
             />
-          </div>
+          </>
         </div>
       )}
     </Draggable>

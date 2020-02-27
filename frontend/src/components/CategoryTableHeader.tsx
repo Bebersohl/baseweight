@@ -164,7 +164,6 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
           <Typography align="right" variant="body2">WEIGHT</Typography>
         </SortLabel>
       </div>
-      {editMode && <div className={classes.unitButton}></div>}
       {editMode && (
         <div className={classes.delete}>
           <Tooltip title="Delete Category">

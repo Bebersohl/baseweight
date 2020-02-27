@@ -171,6 +171,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
 
   return (
     <Row
+      wrap="wrap"
       editMode={editMode}
       borderStyle={lastItem ? 'solid' : 'dotted'}
       borderLeftColor={categoryColor}
@@ -338,6 +339,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           </Tooltip>
         </div>
       )}
+      <span className={classes.break}/>
     </Row>
   );
 };

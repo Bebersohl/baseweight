@@ -7,6 +7,9 @@ import FormatPercent from '../components/FormatPercent';
 import Grow from '@material-ui/core/Grow';
 import Tooltip from '@material-ui/core/Tooltip';
 import Color from 'color';
+import { useMediaQuery } from '@material-ui/core';
+
+const width800 = '@media (max-width:800px)'
 
 const useStyles = makeStyles(theme => ({
   graph: (props: any) => {
@@ -18,6 +21,9 @@ const useStyles = makeStyles(theme => ({
       minWidth: 150,
       maxWidth: 325,
       flexGrow: 1,
+      [width800]: {
+        marginTop: 32,
+      }
     };
   },
   bar: {
@@ -30,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     flexDirection: 'row-reverse',
     position: 'relative',
+    [width800]: {
+      height: 32,
+    }
   },
   percent: {
     paddingLeft: 5,
@@ -37,6 +46,9 @@ const useStyles = makeStyles(theme => ({
     top: 1,
     left: 0,
     pointerEvents: 'none',
+    [width800]: {
+      top: 6,
+    }
   },
 }));
 
@@ -59,6 +71,8 @@ const Graph: React.FC<GraphProps> = ({
   const theme = useTheme();
 
   const classes = useStyles({ hide });
+
+  const isMobile = useMediaQuery('(max-width:800px)')
 
   const maxCatId = sortedCategoryIds.length
     ? sortedCategoryIds.reduce((acc, currCatId) => {
@@ -130,7 +144,7 @@ const Graph: React.FC<GraphProps> = ({
         const wornBarStyle = {
           width: wornWidth + '%',
           backgroundColor: categoryColor,
-          height: 22,
+          height: isMobile ? 32 : 22,
           background: `repeating-linear-gradient(
             45deg,
             transparent,
@@ -143,7 +157,7 @@ const Graph: React.FC<GraphProps> = ({
         const consumableBarStyle = {
           width: consumableWidth + '%',
           backgroundColor: categoryColor,
-          height: 22,
+          height: isMobile ? 32 : 22,
           background: `repeating-linear-gradient(
             -45deg,
             transparent,

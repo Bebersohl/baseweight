@@ -9,7 +9,10 @@ const useStyles = makeStyles(theme => ({
     const highlightColor =
       theme.palette.type === 'light' ? 'white' : theme.palette.grey[900];
 
+    const width800 = '@media (max-width:800px)'
+
     return {
+      flexWrap: props.wrap,
       '& .hiddenIcon': props => ({
         color: theme.palette.text.secondary,
         cursor: props.editMode ? 'pointer' : 'default',
@@ -38,6 +41,9 @@ const useStyles = makeStyles(theme => ({
       '&:hover svg.hiddenIcon': props => ({
         display: props.editMode ? 'inline-block' : 'none',
       }),
+      [width800]: {
+        padding: '7.5px 0 7.5px 0',
+      }
     };
   },
 }));
@@ -47,6 +53,7 @@ interface RowProps {
   borderStyle?: string;
   borderLeftColor?: string;
   editMode?: boolean;
+  wrap?: string;
 }
 
 const Row: React.FC<RowProps> = ({
@@ -54,8 +61,9 @@ const Row: React.FC<RowProps> = ({
   borderStyle = 'dotted',
   borderLeftColor = '',
   editMode,
+  wrap = 'nowrap'
 }) => {
-  const classes = useStyles({ borderStyle, editMode });
+  const classes = useStyles({ borderStyle, editMode, wrap });
 
   return <div className={classes.row}>{children}</div>;
 };
