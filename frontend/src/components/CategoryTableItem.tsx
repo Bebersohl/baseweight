@@ -90,16 +90,16 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
   );
 
   const onQuantityBlur = useCallback(
-    e =>
+    e => {
       dispatch(
         actions.updateItem({
           listId,
           catId,
           gearId,
           field: 'quantity',
-          value: e.target.value,
+          value: parseInt(e.target.value, 10) || 1,
         })
-      ),
+      )},
     [listId, catId, gearId, dispatch]
   );
 
@@ -211,7 +211,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             onBlur={onQuantityBlur}
           >
             <>
-              <Typography display="inline">{item.quantity || '1'}</Typography>
+              <Typography display="inline">{item.quantity ?? '1'}</Typography>
               <span className={classes.times}>&times;</span>
             </>
           </EditableCell>
@@ -291,7 +291,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             type="price"
             currencyCharacter={currencyCharacter}
             editMode={editMode}
-            value={item.price.toString()}
+            value={item.price}
             placeholder="price"
             onBlur={onPriceBlur}
             inputRef={priceInputRef}
@@ -308,7 +308,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           key={item.id + unitType}
           type="weight"
           editMode={editMode}
-          value={item.weight.toString()}
+          value={item.weight}
           placeholder="weight"
           inputRef={weightInputRef}
           onBlur={onWeightBlur}

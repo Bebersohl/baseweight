@@ -251,7 +251,7 @@ export const gearListsSlice = createSlice({
         catId: string;
         gearId: string;
         field: string;
-        value: string;
+        value: string | number;
       }>
     ) => {
       const { catId, gearId, field, value, listId } = action.payload;
