@@ -317,24 +317,25 @@ const ItemList: React.FC<ItemListProps> = props => {
             </IconButton>
           </Tooltip>
           <SharePopover isMobile={isMobile} />
-          {isListOwner && (
-            <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
-              <Switch
-                color="secondary"
-                size={isMobile ? 'medium' : 'small'}
-                checked={editMode}
-                onChange={() =>
-                  dispatch(
-                    actions.setEditMode({
-                      editMode: !editMode,
-                      listId: list.id,
-                    })
-                  )
-                }
-                value="edit"
-              />
-            </Tooltip>
-          )}
+          {isListOwner ||
+            (list.id === 'demo' && (
+              <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
+                <Switch
+                  color="secondary"
+                  size={isMobile ? 'medium' : 'small'}
+                  checked={editMode}
+                  onChange={() =>
+                    dispatch(
+                      actions.setEditMode({
+                        editMode: !editMode,
+                        listId: list.id,
+                      })
+                    )
+                  }
+                  value="edit"
+                />
+              </Tooltip>
+            ))}
           <Button
             color="secondary"
             size={isMobile ? 'large' : 'medium'}
