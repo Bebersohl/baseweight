@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { GearListCategory } from '../types';
 import { CategoryTotal, ListTotals, toFixed } from '../utils';
 import FormatPercent from '../components/FormatPercent';
@@ -55,8 +55,6 @@ const Graph: React.FC<GraphProps> = ({
   categories,
   hide,
 }) => {
-  const theme = useTheme();
-
   const classes = useStyles({ hide });
 
   const maxCatId = sortedCategoryIds.length
@@ -111,12 +109,7 @@ const Graph: React.FC<GraphProps> = ({
                 currentCatTotals.totalWeight) *
               100;
 
-        const categoryColor =
-          theme.palette.type === 'light'
-            ? Color(category.color)
-                .lighten(0.25)
-                .hex()
-            : category.color;
+        const categoryColor = category.color;
 
         const barStyle = {
           width: barWidth + '%',

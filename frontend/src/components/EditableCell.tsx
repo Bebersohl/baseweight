@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   input: (props: any): any => ({
     padding: 0,
     border: 'none',
-    borderBottom: `2px solid transparent`,
+    borderBottom: `1px solid transparent`,
     backgroundColor: 'transparent',
     color: theme.palette.text.primary,
     ...theme.typography[props.textVariant],
@@ -93,10 +93,13 @@ const EditableCell: React.FC<EditableCellProps> = ({
   if (type === 'price') {
     return (
       <span className={classes.currencyWrapper}>
-        <Typography component="span">
-          {currencyCharacter}
-        </Typography>
-        <input className={classes.input + ' hideSteps'} ref={inputRef} type="number" {...commonProps} />
+        <Typography component="span">{currencyCharacter}</Typography>
+        <input
+          className={classes.input + ' hideSteps'}
+          ref={inputRef}
+          type="number"
+          {...commonProps}
+        />
       </span>
     );
   }

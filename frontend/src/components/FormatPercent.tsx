@@ -7,7 +7,11 @@ import { toFixed } from '../utils';
 const useStyles = makeStyles(theme => ({
   percent: (props: any) => ({
     pointerEvents: 'none',
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    ...(theme.palette.type === 'light' && {
+      backgroundColor: 'rgba(255, 255, 255, 0.4)',
+      borderRadius: 1,
+    }),
   }),
 }));
 
