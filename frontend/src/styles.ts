@@ -238,7 +238,7 @@ export const rowStyles: any = (theme: Theme) => {
       display: 'inline-flex',
       flexGrow: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       marginLeft: 5,
     },
   };
