@@ -18,7 +18,7 @@ const AddHyperlinkModal: React.FC<AddHyperlinkModalProps> = ({
   onAddHyperlinkModalClose,
   listId,
 }) => {
-  const [hyperlinkText, setHyperlinkText] = useState();
+  const [hyperlinkText, setHyperlinkText] = useState<string>('');
 
   const dispatch = useDispatch();
 

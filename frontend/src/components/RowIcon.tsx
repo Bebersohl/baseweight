@@ -4,21 +4,35 @@ import FastfoodIcon from '@material-ui/icons/Fastfood';
 import Tooltip from '@material-ui/core/Tooltip';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import LinkIcon from '@material-ui/icons/Link';
+import StarIcon from '@material-ui/icons/Star';
+import { Starred } from '../types';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  const starMap = {
+    red: theme.palette.error.light,
+    green: theme.palette.success.light,
+    blue: theme.palette.primary.main,
+  };
+
+  return createStyles({
     visibileIcon: (props: any) => ({
-      color: theme.palette.primary.main,
+      color:
+        props.type === 'Star'
+          ? starMap[props.starred]
+          : theme.palette.primary.main,
       cursor: props.editMode ? 'pointer' : 'default',
     }),
-  })
-);
+  });
+});
+type RowIconType = 'Consumable' | 'Worn' | 'Link' | 'Star';
 
 interface RowIconProps {
   onClick: () => void;
-  isSelected: boolean;
+  isSelected?: boolean;
+  starred?: Starred;
   editMode: boolean;
-  type: 'Consumable' | 'Worn' | 'Link';
+  type: RowIconType;
+  iconSize: 'small' | 'default' | 'large';
 }
 
 function getIcon(type): any {
@@ -30,23 +44,46 @@ function getIcon(type): any {
     return AccessibilityNewIcon;
   }
 
+  if (type === 'Star') {
+    return StarIcon;
+  }
+
   return LinkIcon;
 }
+
+function getIsSelected(
+  type: RowIconType,
+  starred: Starred | undefined,
+  isSelected: Boolean | undefined
+) {
+  if (type !== 'Star') {
+    return isSelected;
+  }
+
+  return starred !== 'none';
+}
+
 const RowIcon: React.FC<RowIconProps> = ({
   onClick,
   isSelected,
+  starred,
   editMode,
   type,
+  iconSize,
 }) => {
-  const classes = useStyles({ editMode });
+  const classes = useStyles({ editMode, type, starred });
 
   const Icon = getIcon(type);
   return (
     <Tooltip title={type}>
       <Icon
         onClick={!editMode ? undefined : onClick}
-        fontSize="small"
-        className={!isSelected ? 'hiddenIcon' : classes.visibileIcon}
+        fontSize={iconSize}
+        className={
+          !getIsSelected(type, starred, isSelected)
+            ? 'hiddenIcon'
+            : classes.visibileIcon
+        }
       />
     </Tooltip>
   );

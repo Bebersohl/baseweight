@@ -5,9 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
-interface SharePopoverProps {}
+interface SharePopoverProps {
+  isMobile: boolean;
+}
 
-const SharePopover: React.FC<SharePopoverProps> = () => {
+const SharePopover: React.FC<SharePopoverProps> = ({ isMobile }) => {
   const shareInput = useRef<HTMLInputElement>();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -27,7 +29,7 @@ const SharePopover: React.FC<SharePopoverProps> = () => {
     <div>
       <Tooltip title="Share">
         <IconButton color="secondary" onClick={handleClick}>
-          <ShareIcon />
+          <ShareIcon fontSize={isMobile ? 'large' : 'default'} />
         </IconButton>
       </Tooltip>
       <Popover

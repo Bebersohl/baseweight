@@ -50,13 +50,16 @@ const CategoryTableFooter: React.FC<CategoryTableFooterProps> = ({
 
   const classes = useStyles({ showDescriptions, editMode });
 
-  const [displayTotalWeight, displayTotalUnit] = getDisplayWeight(totalWeight, unitType)
+  const [displayTotalWeight, displayTotalUnit] = getDisplayWeight(
+    totalWeight,
+    unitType
+  );
 
   return (
     <Row borderStyle="none" editMode={editMode}>
-      {editMode && <div className={classes.drag}></div>}
+      {editMode && <div className={classes.dragHeader}></div>}
       {showCheckboxes && <div className={classes.checkbox}></div>}
-      <div className={classes.nameHeader}>
+      <div className={classes.nameFooter}>
         {editMode && (
           <Button
             size="small"
@@ -81,18 +84,13 @@ const CategoryTableFooter: React.FC<CategoryTableFooterProps> = ({
           />
         </div>
       )}
-      <div
-        className={classes.weight}
-      >
-        <FormatWeight
-          bold
-          value={displayTotalWeight}
-        />
+      <div className={classes.weight}>
+        <FormatWeight bold value={displayTotalWeight} />
       </div>
       <div className={editMode ? classes.unitButton : classes.unit}>
         <FormatUnit bold unit={displayTotalUnit} />
       </div>
-      {editMode && <div className={classes.delete}></div>}
+      {editMode && <div className={classes.deleteFooter}></div>}
     </Row>
   );
 };

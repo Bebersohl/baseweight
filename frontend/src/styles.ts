@@ -16,25 +16,28 @@ const weightHeaderEdit = weightBasis + unitButtonBasis + 5;
 const weightHeaderView = weightBasis + unitBasis + 5;
 const iconBasis = 17;
 
-const width800 = '@media (max-width:800px)'
-
 export const rowStyles: any = (theme: Theme) => {
-
   return {
-    draggable: {
+    draggable: props => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      [width800]: {
-        order: 1,
-      },
-    },
-    drag: {
+    }),
+    drag: props => ({
       flexBasis: iconBasis,
       flexShrink: 0,
-      // backgroundColor: 'CadetBlue',
+      // backgroundColor: 'Cyan',
       // height: 20,
-    },
+      [theme.breakpoints.down('sm')]: {
+        order: 2,
+      },
+    }),
+    dragHeader: props => ({
+      flexBasis: iconBasis,
+      flexShrink: 0,
+      // backgroundColor: 'Cyan',
+      // height: 20,
+    }),
     checkbox: (props: any) => ({
       display: props.editMode ? 'none' : 'block',
       flexBasis: 20,
@@ -48,12 +51,25 @@ export const rowStyles: any = (theme: Theme) => {
       display: 'flex',
       // backgroundColor: 'Coral',
       // height: 20,
-      [width800]: {
+      [theme.breakpoints.down('sm')]: {
         flexBasis: 20,
-      }
+      },
     },
     nameHeader: props => {
-
+      return {
+        minWidth: 50,
+        flexBasis: 165,
+        flexShrink: 1,
+        flexGrow: 1,
+        whiteSpace: 'initial',
+        // backgroundColor: 'CornflowerBlue',
+        // height: 20,
+        [theme.breakpoints.down('sm')]: {
+          order: 2,
+        },
+      };
+    },
+    nameFooter: props => {
       return {
         minWidth: 100,
         flexBasis: 165,
@@ -65,10 +81,10 @@ export const rowStyles: any = (theme: Theme) => {
       };
     },
     break: {
-      [width800]: {
+      [theme.breakpoints.down('sm')]: {
         flexBasis: '100%',
         height: 0,
-      }
+      },
     },
     name: props => ({
       minWidth: 80,
@@ -87,9 +103,10 @@ export const rowStyles: any = (theme: Theme) => {
       whiteSpace: 'initial',
       // backgroundColor: 'DarkBlue',
       // height: 20,
-      [width800]: {
+      [theme.breakpoints.down('sm')]: {
         order: 1,
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
+        flexBasis: '100vw',
       },
     }),
     link: {
@@ -97,8 +114,8 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkCyan',
       // height: 20,
-      [width800]: {
-        order: 2,
+      [theme.breakpoints.down('sm')]: {
+        order: 3,
       },
     },
     worn: {
@@ -106,8 +123,8 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkGoldenRod',
       // height: 20,
-      [width800]: {
-        order: 3,
+      [theme.breakpoints.down('sm')]: {
+        order: 4,
       },
     },
     consumable: {
@@ -115,8 +132,8 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkGreen',
       // height: 20,
-      [width800]: {
-        order: 4,
+      [theme.breakpoints.down('sm')]: {
+        order: 5,
       },
     },
     star: {
@@ -124,9 +141,9 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkMagenta',
       // height: 20,
-      [width800]: {
-        order: 5,
-        marginRight: '0 !important'
+      [theme.breakpoints.down('sm')]: {
+        order: 6,
+        marginRight: '0 !important',
       },
     },
     price: {
@@ -135,6 +152,15 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkOliveGreen',
       // height: 20,
+    },
+    priceHeader: {
+      flexBasis: 80,
+      flexShrink: 0,
+      // backgroundColor: 'DarkOliveGreen',
+      // height: 20,
+      [theme.breakpoints.down('sm')]: {
+        order: 3,
+      },
     },
     weight: {
       ...hideScroll,
@@ -149,6 +175,9 @@ export const rowStyles: any = (theme: Theme) => {
       flexShrink: 0,
       // backgroundColor: 'DarkRed',
       // height: 20,
+      [theme.breakpoints.down('sm')]: {
+        order: 4,
+      },
     }),
     unit: {
       flexBasis: unitBasis,
@@ -172,12 +201,38 @@ export const rowStyles: any = (theme: Theme) => {
       textAlign: 'right',
       // backgroundColor: 'DarkSlateBlue',
       // height: 20,
-      marginRight: '0 !important'
+      marginRight: '0 !important',
+      [theme.breakpoints.down('sm')]: {
+        order: 7,
+      },
+    },
+    deleteHeader: {
+      flexBasis: iconBasis,
+      flexShrink: 0,
+      textAlign: 'right',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'DarkSlateBlue',
+      // height: 20,
+      [theme.breakpoints.down('sm')]: {
+        paddingRight: 5,
+        order: 1,
+      },
+    },
+    deleteFooter: {
+      flexBasis: iconBasis,
+      flexShrink: 0,
+      // backgroundColor: 'DarkSlateBlue',
+      // height: 20,
+      [theme.breakpoints.down('sm')]: {
+        order: -1,
+      },
     },
     checkboxInput: {
       background: 'transparent',
       width: 20,
-      // height: 20,
+      height: 20,
     },
     times: {
       display: 'inline-flex',

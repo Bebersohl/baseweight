@@ -9,13 +9,15 @@ interface ListMenuProps {
   handleDeleteList: () => void;
   isListOwner: boolean;
   handleExportList: () => void;
+  isMobile: boolean;
 }
 
 const ListMenu: React.FC<ListMenuProps> = ({
+  isMobile,
   handleCopyList,
   handleDeleteList,
   isListOwner,
-  handleExportList
+  handleExportList,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -28,25 +30,35 @@ const ListMenu: React.FC<ListMenuProps> = ({
   };
 
   let menuItems = [
-    <MenuItem key="copy" onClick={handleCopyList}>Copy List</MenuItem>,
-    <MenuItem key="print" onClick={() => window.print()}>Print List</MenuItem>,
-    <MenuItem key="export" onClick={handleExportList}>Export CSV</MenuItem>
+    <MenuItem key="copy" onClick={handleCopyList}>
+      Copy List
+    </MenuItem>,
+    <MenuItem key="print" onClick={() => window.print()}>
+      Print List
+    </MenuItem>,
+    <MenuItem key="export" onClick={handleExportList}>
+      Export CSV
+    </MenuItem>,
   ];
 
   if (isListOwner) {
     menuItems = [
       ...menuItems,
       <MenuItem key="import" onClick={handleClose}>
-        <label htmlFor="file-upload-button" style={{cursor: 'pointer'}}>Import CSV</label>
+        <label htmlFor="file-upload-button" style={{ cursor: 'pointer' }}>
+          Import CSV
+        </label>
       </MenuItem>,
-      <MenuItem key="delete" onClick={handleDeleteList}>Delete List</MenuItem>,
-    ]
+      <MenuItem key="delete" onClick={handleDeleteList}>
+        Delete List
+      </MenuItem>,
+    ];
   }
 
   return (
     <>
       <IconButton color="secondary" onClick={handleClick}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize={isMobile ? 'large' : 'default'} />
       </IconButton>
       <Menu
         anchorEl={anchorEl}

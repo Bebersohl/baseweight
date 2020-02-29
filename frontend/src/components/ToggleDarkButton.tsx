@@ -8,7 +8,7 @@ import { IconButton } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginRight: 15,
-  }
+  },
 }));
 
 interface ToggleDarkButtonProps {
@@ -22,12 +22,16 @@ const ToggleDarkButton: React.FC<ToggleDarkButtonProps> = ({
 }) => {
   const classes = useStyles();
 
-  const tooltipText = paletteType === 'dark' ? "Dark mode" : "Light mode";
+  const tooltipText = paletteType === 'dark' ? 'Dark mode' : 'Light mode';
 
   return (
     <Tooltip title={tooltipText} className={classes.root}>
-      <IconButton size="small" color="inherit" onClick={onPaletteTypeChange}>
-        {paletteType === 'dark' ? (<Brightness4Icon />) : (<Brightness7Icon />)}
+      <IconButton color="inherit" onClick={onPaletteTypeChange}>
+        {paletteType === 'dark' ? (
+          <Brightness4Icon fontSize="inherit" />
+        ) : (
+          <Brightness7Icon fontSize="inherit" />
+        )}
       </IconButton>
     </Tooltip>
   );

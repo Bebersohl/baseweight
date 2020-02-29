@@ -12,15 +12,16 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import CategoryTableFooter from './CategoryTableFooter';
 import CategoryTableHeader from './CategoryTableHeader';
 import CategoryTableItem from './CategoryTableItem';
-import { useMediaQuery } from '@material-ui/core';
+import { useIsMobile } from '../hooks/media';
 
 const useStyles = makeStyles(theme => ({
-
+  root: (props: any) => ({
+    marginBottom: props.editMode && props.isMobile ? 90 : 30,
+  }),
 }));
 
 interface CategoryTableProps {
   category: GearListCategory;
-  categoryColor: string;
   catId: string;
   editMode: boolean;
   openHyperlinkModal: (gearItem: GearItem, catId: string) => void;
@@ -40,7 +41,6 @@ interface CategoryTableProps {
 const CategoryTable: React.FC<CategoryTableProps> = props => {
   const {
     category,
-    categoryColor,
     catId,
     editMode,
     openHyperlinkModal,
@@ -59,6 +59,8 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
 
   const theme = useTheme();
 
+  const isMobile = useIsMobile();
+
   const isEveryCheckboxChecked =
     category.gearIds.length === 0
       ? false
@@ -68,9 +70,7 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
     isEveryCheckboxChecked
   );
 
-  // const tableScroll = useMediaQuery('(max-width:550px)');
-
-  const classes = useStyles();
+  const classes = useStyles({ isMobile, editMode });
 
   const [lastAddedId, setLastAddedId] = useState('');
 
@@ -102,8 +102,8 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
               )}
             >
               <CategoryTableItem
+                isMobile={isMobile}
                 editMode={editMode}
-                categoryColor={categoryColor}
                 dragHandleProps={draggableProvided.dragHandleProps}
                 category={category}
                 item={item}
@@ -149,8 +149,9 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
             theme
           )}
         >
-          <>
+          <div className={classes.root}>
             <CategoryTableHeader
+              isMobile={isMobile}
               editMode={editMode}
               catId={catId}
               isCategoryBoxChecked={isCategoryBoxChecked}
@@ -179,7 +180,7 @@ const CategoryTable: React.FC<CategoryTableProps> = props => {
               totalWeight={totalWeight}
               catId={catId}
             />
-          </>
+          </div>
         </div>
       )}
     </Draggable>

@@ -13,11 +13,10 @@ import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(() => {
-
   return {
     root: (props: any) => ({
       flexGrow: props.hide ? 0 : 1,
-      maxWidth: 470,
+      maxWidth: 570,
       minWidth: props.hide ? 0 : 275,
     }),
     category: (props: any) => ({
@@ -31,25 +30,25 @@ const useStyles = makeStyles(() => {
       flexBasis: 70,
       flexShrink: 0,
       textAlign: 'left',
-      display: props.hide ? 'none' : 'block'
+      display: props.hide ? 'none' : 'block',
     }),
     weight: (props: any) => ({
       flexBasis: 51,
       flexShrink: 0,
       textAlign: 'right',
-      display: props.hide ? 'none' : 'block'
+      display: props.hide ? 'none' : 'block',
     }),
     weightHeader: (props: any) => ({
       flexBasis: 71,
       flexShrink: 0,
       textAlign: 'right',
-      display: props.hide ? 'none' : 'block'
+      display: props.hide ? 'none' : 'block',
     }),
     unit: (props: any) => ({
       flexBasis: 15,
       flexShrink: 0,
       textAlign: 'right',
-      display: props.hide ? 'none' : 'block'
+      display: props.hide ? 'none' : 'block',
     }),
     total: (props: any) => ({
       minWidth: 100,
@@ -114,7 +113,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
 
   return (
     <div className={classes.root}>
-      <Row borderStyle="solid">
+      <Row borderStyle="solid" fixedHeight>
         <div className={classes.category}>
           <SortLabel
             editMode={editMode}
@@ -186,6 +185,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
 
         return (
           <Row
+            fixedHeight
             key={catId}
             borderStyle={
               index === sortedCategoryIds.length - 1 ? 'solid' : 'dotted'
@@ -214,7 +214,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
         );
       })}
       <div style={{ display: hide ? 'none' : 'block' }}>
-        <Row>
+        <Row fixedHeight>
           <div className={classes.total}>
             <Typography variant="body2">TOTAL</Typography>
           </div>
@@ -234,7 +234,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           </div>
         </Row>
 
-        <Row>
+        <Row fixedHeight>
           <div className={classes.total}>
             <Typography variant="body2">CONSUMABLE</Typography>
           </div>
@@ -247,7 +247,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           </div>
         </Row>
 
-        <Row>
+        <Row fixedHeight>
           <div className={classes.total}>
             <Typography variant="body2">WORN</Typography>
           </div>
@@ -260,7 +260,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           </div>
         </Row>
 
-        <Row>
+        <Row fixedHeight>
           <div className={classes.total}>
             <Typography style={{ fontWeight: 600 }} variant="body2">
               BASE WEIGHT

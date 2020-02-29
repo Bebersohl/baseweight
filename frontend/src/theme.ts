@@ -5,7 +5,7 @@ const lightMode = {
   palette: {
     background: {
       paper: '#fff',
-      default: "#f7f8fc"
+      default: '#f7f8fc',
     },
     secondary: {
       light: purple[200],
@@ -14,7 +14,7 @@ const lightMode = {
     },
     type: 'light',
   },
-}
+};
 
 const darkMode = {
   palette: {
@@ -26,11 +26,11 @@ const darkMode = {
     secondary: {
       light: red[100],
       main: red[300],
-      dark: red[500]
+      dark: red[500],
     },
     type: 'dark',
   },
-}
+};
 
 const common = {
   typography: {
@@ -43,32 +43,21 @@ const common = {
       },
     },
   },
-  mixins: {
-    toolbar: {
-      minHeight: 40,
-      '@media (min-width:0px) and (orientation: landscape)': {
-        minHeight: 40,
-      },
-      '@media (min-width:600px)': {
-        minHeight: 40,
-      },
-    },
-  },
-}
-export const createTheme = (paletteType) => {
+};
+export const createTheme = paletteType => {
   let theme = {};
 
-  if(paletteType === 'dark') {
+  if (paletteType === 'dark') {
     theme = {
       ...common,
-      ...darkMode
-    }
+      ...darkMode,
+    };
   } else {
     theme = {
       ...common,
       ...lightMode,
-    }
+    };
   }
 
-  return responsiveFontSizes(createMuiTheme(theme))
-}
+  return responsiveFontSizes(createMuiTheme(theme));
+};

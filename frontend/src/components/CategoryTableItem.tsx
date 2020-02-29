@@ -5,7 +5,6 @@ import FormatWeight from './FormatWeight';
 import Typography from '@material-ui/core/Typography';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import DeleteIcon from '@material-ui/icons/Delete';
-import StarredIcon from './StarredIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import EditableCell from './EditableCell';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -24,7 +23,6 @@ import { showDescriptionsSelector, showQuantitiesSelector } from '../selectors';
 const useStyles = makeStyles(rowStyles);
 
 interface CategoryTableItemProps {
-  categoryColor: string;
   catId: string;
   editMode: boolean;
   openHyperlinkModal: (gearId: GearItem, catId: string) => void;
@@ -39,12 +37,12 @@ interface CategoryTableItemProps {
   currencyCharacter: string;
   unitType: UnitType;
   lastItem: boolean;
+  isMobile: boolean;
 }
 
 const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
   const {
     editMode,
-    categoryColor,
     dragHandleProps,
     item,
     gearId,
@@ -57,7 +55,10 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
     currencyCharacter,
     unitType,
     lastItem,
+    isMobile,
   } = props;
+
+  const iconSize = isMobile && editMode ? 'default' : 'small';
 
   const showQuantities = useAppSelector(state =>
     showQuantitiesSelector(state, listId)
@@ -99,7 +100,8 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           field: 'quantity',
           value: parseInt(e.target.value, 10) || 1,
         })
-      )},
+      );
+    },
     [listId, catId, gearId, dispatch]
   );
 
@@ -171,10 +173,10 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
 
   return (
     <Row
+      isMobile={isMobile}
       wrap="wrap"
       editMode={editMode}
       borderStyle={lastItem ? 'solid' : 'dotted'}
-      borderLeftColor={categoryColor}
     >
       {editMode && (
         <div className={classes.drag}>
@@ -182,7 +184,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             <DragIndicatorIcon
               className="hiddenIcon"
               style={{ cursor: 'grab' }}
-              fontSize="small"
+              fontSize={iconSize}
             />
           </div>
         </div>
@@ -254,6 +256,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             editMode={editMode}
             onClick={() => openHyperlinkModal(item, catId)}
             isSelected={!!item.hyperlink}
+            iconSize={iconSize}
           />
         </div>
       )}
@@ -265,6 +268,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             dispatch(actions.toggleWorn({ listId, catId, gearId }));
           }}
           isSelected={item.worn}
+          iconSize={iconSize}
         />
       </div>
       <div className={classes.consumable}>
@@ -275,15 +279,18 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
             dispatch(actions.toggleConsumable({ listId, catId, gearId }))
           }
           isSelected={item.consumable}
+          iconSize={iconSize}
         />
       </div>
       <div className={classes.star}>
-        <StarredIcon
+        <RowIcon
+          type="Star"
           editMode={editMode}
           onClick={() =>
             dispatch(actions.toggleStarred({ listId, catId, gearId }))
           }
           starred={item.starred}
+          iconSize={iconSize}
         />
       </div>
       {showPrices && (
@@ -331,7 +338,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           <Tooltip title="Delete Item">
             <DeleteIcon
               className="hiddenIcon"
-              fontSize="small"
+              fontSize={iconSize}
               onClick={() =>
                 dispatch(actions.removeItem({ listId, catId, gearId }))
               }
@@ -339,7 +346,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           </Tooltip>
         </div>
       )}
-      <span className={classes.break}/>
+      <span className={classes.break} />
     </Row>
   );
 };

@@ -8,5 +8,5 @@ export function useIsMobile() {
 
 export function useIsTablet() {
   const theme = useTheme();
-  return useMediaQuery(theme.breakpoints.down('md'));
+  return useMediaQuery(theme.breakpoints.down('sm'));
 }

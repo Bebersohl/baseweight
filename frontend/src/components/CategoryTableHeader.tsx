@@ -30,6 +30,7 @@ interface CategoryTableHeaderProps {
   categoryName: string;
   showPrices: boolean;
   listId: string;
+  isMobile: boolean;
 }
 
 const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
@@ -45,7 +46,10 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
   categoryName,
   showPrices,
   listId,
+  isMobile,
 }) => {
+  const iconSize = isMobile && editMode ? 'default' : 'small';
+
   const showDescriptions = useAppSelector(state =>
     showDescriptionsSelector(state, listId)
   );
@@ -55,14 +59,14 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
   const dispatch = useDispatch();
 
   return (
-    <Row borderStyle="solid" editMode={editMode}>
+    <Row borderStyle="solid" editMode={editMode} isMobile={isMobile} isHeader>
       {editMode && (
-        <div className={classes.drag}>
+        <div className={classes.dragHeader}>
           <div {...dragHandleProps} className={classes.draggable}>
             <DragIndicatorIcon
               className="hiddenIcon icon"
               style={{ cursor: 'grab' }}
-              fontSize="small"
+              fontSize={iconSize}
             />
           </div>
         </div>
@@ -124,7 +128,7 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
         </SortLabel>
       </div>
       {showPrices && (
-        <div className={classes.price}>
+        <div className={classes.priceHeader}>
           <SortLabel
             editMode={editMode}
             selected={sortItemsBy === 'price'}
@@ -161,15 +165,17 @@ const CategoryTableHeader: React.FC<CategoryTableHeaderProps> = ({
           }
           flexDirection="row"
         >
-          <Typography align="right" variant="body2">WEIGHT</Typography>
+          <Typography align="right" variant="body2">
+            WEIGHT
+          </Typography>
         </SortLabel>
       </div>
       {editMode && (
-        <div className={classes.delete}>
+        <div className={classes.deleteHeader}>
           <Tooltip title="Delete Category">
             <DeleteIcon
               className="hiddenIcon"
-              fontSize="small"
+              fontSize={iconSize}
               onClick={() => {
                 if (
                   window.confirm(

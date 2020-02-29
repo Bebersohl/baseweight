@@ -17,7 +17,6 @@ import {
 import { GearItem } from '../types';
 import CategoryTable from './CategoryTable';
 import AddIcon from '@material-ui/icons/Add';
-import { CATEGORY_COLORS } from '../constants';
 import shortid from 'shortid';
 import Switch from '@material-ui/core/Switch';
 import SettingsModal from './SettingsModal';
@@ -37,7 +36,8 @@ import { useAppSelector } from '../store';
 import { useDispatch, shallowEqual } from 'react-redux';
 import { actions } from '../reducers';
 import { navigate } from '@reach/router';
-import { Tabs, Tab, useMediaQuery } from '@material-ui/core';
+import { Tabs, Tab } from '@material-ui/core';
+import { useIsMobile } from '../hooks/media';
 
 const useStyles = makeStyles(theme => ({
   unitTypeButton: {
@@ -89,7 +89,7 @@ const ItemList: React.FC<ItemListProps> = props => {
     shallowEqual
   );
 
-  const showTabs = useMediaQuery('(max-width:500px)');
+  const isMobile = useIsMobile();
 
   const { hideHeader = false } = props;
 
@@ -186,7 +186,6 @@ const ItemList: React.FC<ItemListProps> = props => {
           category={list.categories[catId]}
           index={index}
           key={catId}
-          categoryColor={CATEGORY_COLORS[index]}
           totalPrice={totalPrice}
           totalWeight={totalWeight}
           catId={catId}
@@ -272,10 +271,11 @@ const ItemList: React.FC<ItemListProps> = props => {
           md={4}
           sm={12}
           alignItems="center"
-          justify="flex-end"
+          justify={isMobile ? 'space-between' : 'flex-end'}
           className="noPrint"
         >
           <ListMenu
+            isMobile={isMobile}
             isListOwner={isListOwner}
             handleCopyList={() => {
               const newListId = shortid.generate();
@@ -313,15 +313,15 @@ const ItemList: React.FC<ItemListProps> = props => {
               color="secondary"
               onClick={() => setSettingsModalOpen(true)}
             >
-              <SettingsIcon />
+              <SettingsIcon fontSize={isMobile ? 'large' : 'default'} />
             </IconButton>
           </Tooltip>
-          <SharePopover />
+          <SharePopover isMobile={isMobile} />
           {isListOwner && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch
                 color="secondary"
-                size="small"
+                size={isMobile ? 'medium' : 'small'}
                 checked={editMode}
                 onChange={() =>
                   dispatch(
@@ -337,6 +337,7 @@ const ItemList: React.FC<ItemListProps> = props => {
           )}
           <Button
             color="secondary"
+            size={isMobile ? 'large' : 'medium'}
             className={classes.unitTypeButton}
             onClick={e =>
               dispatch(
@@ -352,7 +353,7 @@ const ItemList: React.FC<ItemListProps> = props => {
         </Grid>
       </Grid>
       <Grid item container spacing={3}>
-        {showTabs && (
+        {isMobile && (
           <Grid item xs={12} style={{ padding: 0 }}>
             <Tabs
               value={tabIndex}
@@ -385,14 +386,14 @@ const ItemList: React.FC<ItemListProps> = props => {
             categories={list.categories}
             currencyCharacter={list.currencyCharacter}
             unitType={list.unitType}
-            hide={tabIndex !== 0 && showTabs}
+            hide={tabIndex !== 0 && isMobile}
           />
           <Graph
             categoryTotals={categoryTotals}
             listTotals={listTotals}
             sortedCategoryIds={sortedCategoryIds}
             categories={list.categories}
-            hide={tabIndex !== 1 && showTabs}
+            hide={tabIndex !== 1 && isMobile}
           />
         </Grid>
         <Grid item container md={12} lg={5}>

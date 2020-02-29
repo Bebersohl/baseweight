@@ -5,7 +5,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AppDrawer from './AppDrawer';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
 import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
 import ForgotModal from './ForgotModal';
@@ -18,11 +23,21 @@ import { actions } from '../reducers';
 import { useAppSelector } from '../store';
 import ToggleDarkButton from './ToggleDarkButton';
 import { isUserSignedIn } from '../utils';
+import { useIsMobile } from '../hooks/media';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolBar: {
-      height: 40,
+      [theme.breakpoints.up('sm')]: {
+        height: 40,
+        minHeight: 40,
+        '@media (min-width:0px) and (orientation: landscape)': {
+          minHeight: 40,
+        },
+        '@media (min-width:600px)': {
+          minHeight: 40,
+        },
+      },
     },
     root: {
       flexGrow: 1,
@@ -34,8 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     accountButton: {
-      textTransform: 'none'
-    }
+      textTransform: 'none',
+    },
   })
 );
 
@@ -44,7 +59,10 @@ interface HeaderProps {
   onPaletteTypeChange: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => {
+const Header: React.FC<HeaderProps> = ({
+  paletteType,
+  onPaletteTypeChange,
+}) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
 
   const isSignInModalOpen = useAppSelector(state => state.modals.signIn);
@@ -53,13 +71,19 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
   const isSignUpModalOpen = useAppSelector(state => state.modals.signUp);
   const userId = useAppSelector(state => state.user.id);
   const providerId = useAppSelector(state => state.user.providerId);
-  const displayName = useAppSelector(state => state.user.displayName)
+  const displayName = useAppSelector(state => state.user.displayName);
 
   const dispatch = useDispatch();
 
   const [anchorMenuEl, setAnchorMenuEl] = React.useState<null | HTMLElement>(
     null
   );
+
+  const isMobile = useIsMobile();
+
+  // const iconSize = isMobile ? 'medium' : 'small';
+
+  // const fontSize = isMobile ? 'large' : 'default';
 
   const classes = useStyles({});
 
@@ -71,26 +95,31 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
 
   return (
     <>
-      <AppBar position="static" color={theme.palette.type === 'dark' ? 'default' : 'primary'} className="noPrint">
+      <AppBar
+        position="static"
+        color={theme.palette.type === 'dark' ? 'default' : 'primary'}
+        className="noPrint"
+      >
         <Toolbar className={classes.toolBar}>
           <IconButton
             onClick={() => setDrawerOpen(true)}
             className={classes.menuButton}
             edge="start"
             color="inherit"
-            size="small"
           >
-            <MenuIcon />
+            <MenuIcon fontSize={isMobile ? 'large' : 'inherit'} />
           </IconButton>
           <div className={classes.space} />
-          <ToggleDarkButton paletteType={paletteType} onPaletteTypeChange={onPaletteTypeChange}/>
+          <ToggleDarkButton
+            paletteType={paletteType}
+            onPaletteTypeChange={onPaletteTypeChange}
+          />
           {isUserSignedIn(userId) ? (
             <>
               <Button
                 onClick={e => setAnchorMenuEl(e.currentTarget)}
-                size="small"
                 color="inherit"
-                startIcon={<AccountCircleIcon />}
+                startIcon={<AccountCircleIcon fontSize="inherit" />}
                 className={classes.accountButton}
               >
                 {displayName}
@@ -139,7 +168,6 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
           ) : (
             <>
               <Button
-                size="small"
                 onClick={() =>
                   dispatch(
                     actions.toggleModal({ isOpen: true, modal: 'signUp' })
@@ -150,7 +178,6 @@ const Header: React.FC<HeaderProps> = ({ paletteType, onPaletteTypeChange }) => 
                 Sign Up
               </Button>
               <Button
-                size="small"
                 onClick={() =>
                   dispatch(
                     actions.toggleModal({ isOpen: true, modal: 'signIn' })
