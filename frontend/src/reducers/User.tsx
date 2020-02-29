@@ -217,18 +217,20 @@ export const googleSignIn = (): AppThunk => async dispatch => {
       );
     }
 
-    const newUser = {
-      id: res.user.uid,
-      displayName: res.user.displayName || 'Someone',
-      providerId: 'google.com',
-    };
+    if (res.additionalUserInfo?.isNewUser) {
+      const newUser = {
+        id: res.user.uid,
+        displayName: res.user.displayName || 'Someone',
+        providerId: 'google.com',
+      };
 
-    await db
-      .collection('users')
-      .doc(res.user.uid)
-      .set(newUser);
+      await db
+        .collection('users')
+        .doc(res.user.uid)
+        .set(newUser);
 
-    dispatch(setUser(newUser));
+      dispatch(setUser(newUser));
+    }
   } catch (err) {
     dispatch(userAlert({ message: err.message, severity: 'error' }));
   } finally {
