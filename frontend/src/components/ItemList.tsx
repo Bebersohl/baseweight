@@ -316,7 +316,7 @@ const ItemList: React.FC<ItemListProps> = props => {
               <SettingsIcon fontSize={isMobile ? 'large' : 'default'} />
             </IconButton>
           </Tooltip>
-          <SharePopover isMobile={isMobile} />
+          <SharePopover isMobile={isMobile} listId={list.id} />
           {(isListOwner || list.id === 'demo') && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch

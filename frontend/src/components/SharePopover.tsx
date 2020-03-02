@@ -7,9 +7,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 interface SharePopoverProps {
   isMobile: boolean;
+  listId: string;
 }
 
-const SharePopover: React.FC<SharePopoverProps> = ({ isMobile }) => {
+const SharePopover: React.FC<SharePopoverProps> = ({ isMobile, listId }) => {
   const shareInput = useRef<HTMLInputElement>();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -51,7 +52,7 @@ const SharePopover: React.FC<SharePopoverProps> = ({ isMobile }) => {
         <TextField
           style={{ width: 300 }}
           inputRef={shareInput}
-          defaultValue={window.location.href}
+          defaultValue={window.location.origin + '/list/' + listId}
           InputProps={{
             readOnly: true,
           }}
