@@ -72,6 +72,7 @@ const useStyles = makeStyles(theme => ({
 
 interface ItemListProps {
   hideHeader?: boolean;
+  hideShare?: boolean;
   listId: string;
 }
 
@@ -91,7 +92,7 @@ const ItemList: React.FC<ItemListProps> = props => {
 
   const isMobile = useIsMobile();
 
-  const { hideHeader = false } = props;
+  const { hideHeader = false, hideShare = false } = props;
 
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
 
@@ -316,7 +317,7 @@ const ItemList: React.FC<ItemListProps> = props => {
               <SettingsIcon fontSize={isMobile ? 'large' : 'default'} />
             </IconButton>
           </Tooltip>
-          <SharePopover isMobile={isMobile} listId={list.id} />
+          {!hideShare && <SharePopover isMobile={isMobile} listId={list.id} />}
           {(isListOwner || list.id === 'demo') && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch

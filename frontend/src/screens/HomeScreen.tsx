@@ -25,7 +25,7 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
 
   // show demo if user not signed in or user is signed in and has 0 lists
   useEffect(() => {
-    if (userId !== '' && !(isUserSignedIn(userId)  && gearListIds.length > 0)) {
+    if (userId !== '' && !(isUserSignedIn(userId) && gearListIds.length > 0)) {
       dispatch(actions.getList('demo'));
     }
   }, [userId, gearListIds.length, dispatch]);
@@ -84,9 +84,11 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
       </Typography>
 
       {demoList ? (
-        <ItemList hideHeader listId="demo" />
+        <ItemList hideHeader hideShare listId="demo" />
       ) : (
-        <Typography style={{ marginTop: 50 }} align="center" >Loading demo...</Typography>
+        <Typography style={{ marginTop: 50 }} align="center">
+          Loading demo...
+        </Typography>
       )}
     </div>
   );
