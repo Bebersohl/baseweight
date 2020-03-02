@@ -19,6 +19,7 @@ import {
   toGrams,
   fromGrams,
   toFixed,
+  switchUnit,
 } from '../utils';
 
 import { db } from '../firebase';
@@ -278,16 +279,7 @@ export const gearListsSlice = createSlice({
 
       const item = list.categories[catId].gearItems[gearId];
 
-      if(item.unit === 'oz') {
-        item.unit = 'lb';
-      } else if (item.unit === 'g') {
-        item.unit = 'kg';
-      } else if (item.unit === 'kg') {
-        item.unit = 'g';
-      } else {
-        item.unit = 'oz';
-      }
-
+      item.unit = switchUnit(item.unit);
     },
     toggleWorn: (
       state,
@@ -448,7 +440,7 @@ export const gearListsSlice = createSlice({
           | 'showQuantities';
       }>
     ) => {
-      const { listId, column} = action.payload;
+      const { listId, column } = action.payload;
 
       const list = state.gearListsMap[listId];
 
@@ -607,7 +599,7 @@ export const gearListsSlice = createSlice({
       lists.forEach(list => {
         list.showCheckboxes = false;
 
-        if(list.showQuantities === undefined) {
+        if (list.showQuantities === undefined) {
           list.showQuantities = true;
         }
 

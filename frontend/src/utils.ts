@@ -402,6 +402,22 @@ export function toggleUnit(unit: Unit, unitType: UnitType) {
   return unit;
 }
 
+export function switchUnit(unit: Unit): Unit {
+  if (unit === 'oz') {
+    return 'lb';
+  }
+
+  if (unit === 'g') {
+    return 'kg';
+  }
+
+  if (unit === 'kg') {
+    return 'g';
+  }
+
+  return 'oz';
+}
+
 export function getNextColor(categories: { [key: string]: GearListCategory }) {
   const catIds = Object.keys(categories);
 
