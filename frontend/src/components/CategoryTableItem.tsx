@@ -19,6 +19,7 @@ import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store';
 import { showDescriptionsSelector, showQuantitiesSelector } from '../selectors';
+import { parseQuantity } from '../utils';
 
 const useStyles = makeStyles(rowStyles);
 
@@ -98,7 +99,7 @@ const CategoryTableItem: React.FC<CategoryTableItemProps> = props => {
           catId,
           gearId,
           field: 'quantity',
-          value: parseInt(e.target.value, 10) || 1,
+          value: parseQuantity(e.target.value),
         })
       );
     },

@@ -32,7 +32,7 @@ export function trimZeros(value) {
 }
 
 export function toFixed(value: number, numOfZeros = 2) {
-  return trimZeros(value.toFixed(numOfZeros))
+  return trimZeros(value.toFixed(numOfZeros));
 }
 
 export function isNumeric(n) {
@@ -93,7 +93,7 @@ export function getListTotals(
     const baseWeight = !item.worn && !item.consumable ? weightWithQuantity : 0;
 
     return {
-      totalPrice: acc.totalPrice + (toCents(item.price) * quantity),
+      totalPrice: acc.totalPrice + toCents(item.price) * quantity,
       totalWeight: acc.totalWeight + weightWithQuantity,
       consumableWeight: acc.consumableWeight + consumableWeight,
       wornWeight: acc.wornWeight + wornWeight,
@@ -102,9 +102,25 @@ export function getListTotals(
   }, init);
 }
 
+export function parseQuantity(value) {
+  const quantity = parseInt(value, 10);
+
+  if (isNaN(quantity) || quantity < 0) {
+    return 1;
+  }
+
+  return quantity;
+}
+
 export function getDragStyle(isDragging, draggableStyle, theme: Theme) {
-  const borderColor = theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.common.black
-  const backgroundColor = theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[900]
+  const borderColor =
+    theme.palette.type === 'light'
+      ? theme.palette.grey[400]
+      : theme.palette.common.black;
+  const backgroundColor =
+    theme.palette.type === 'light'
+      ? theme.palette.grey[300]
+      : theme.palette.grey[900];
   return {
     ...draggableStyle,
     userSelect: 'none',
@@ -143,7 +159,7 @@ export function getCategoryTotals(
 
       const weightWithQuantity = weightInGrams * quantity;
 
-      totalPrice = totalPrice + (toCents(item.price) * quantity);
+      totalPrice = totalPrice + toCents(item.price) * quantity;
 
       totalWeight = totalWeight + weightWithQuantity;
       if (item.consumable) {
@@ -520,8 +536,10 @@ export function convertListToCsvString(list: GearList) {
   return papa.unparse(rows);
 }
 
-export function getDisplayWeight(valueInGrams: number, unitType: UnitType): [number, Unit] {
-
+export function getDisplayWeight(
+  valueInGrams: number,
+  unitType: UnitType
+): [number, Unit] {
   if (valueInGrams >= 1000 && unitType === 'metric') {
     return [fromGrams(valueInGrams, 'kg'), 'kg'];
   }

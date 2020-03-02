@@ -5,7 +5,15 @@ import shortid from 'shortid';
 import { GearList, Starred, Unit, GearListCategory, GearItem } from '../types';
 import cloneDeep from 'clone-deep';
 import isUrl from 'is-url';
-import { getNextColor, convertUnitToListType, isNumeric, toGrams, fromGrams, toFixed } from '../utils';
+import {
+  getNextColor,
+  convertUnitToListType,
+  isNumeric,
+  toGrams,
+  fromGrams,
+  toFixed,
+  parseQuantity,
+} from '../utils';
 import { actions } from '../reducers';
 import { useDispatch } from 'react-redux';
 import { createBlankList } from '../reducers/GearLists';
@@ -52,16 +60,6 @@ function stringToBool(value = '') {
   return !!val;
 }
 
-function validateQuantity(value) {
-  const quantity = parseInt(value, 10);
-
-  if(!quantity) {
-    return 1
-  }
-
-  return quantity;
-}
-
 const FileUploadInput: React.FC<FileUploadInputProps> = ({
   list,
   onUploadComplete,
@@ -87,37 +85,38 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
 
             const wasColumnFound = result.data[0].map(header => false);
 
-            const findCol = (cols: any[]) => headers.findIndex((header, index) => {
-              const match = cols.some(col => header.includes(col))
-              if (match) {
-                wasColumnFound[index] = true;
-              }
-              return match;
-            });
+            const findCol = (cols: any[]) =>
+              headers.findIndex((header, index) => {
+                const match = cols.some(col => header.includes(col));
+                if (match) {
+                  wasColumnFound[index] = true;
+                }
+                return match;
+              });
 
-            const name_col: number = findCol(['name'])
+            const name_col: number = findCol(['name']);
 
-            const category_col: number = findCol(['category'])
+            const category_col: number = findCol(['category']);
 
-            const desc_col: number = findCol(['desc'])
+            const desc_col: number = findCol(['desc']);
 
-            const weight_col: number = findCol(['weight'])
+            const weight_col: number = findCol(['weight']);
 
-            const unit_col: number = findCol(['unit'])
-            
-            const url_col: number = findCol(['hyperlink', 'url'])
+            const unit_col: number = findCol(['unit']);
 
-            const price_col: number = findCol(['price'])
+            const url_col: number = findCol(['hyperlink', 'url']);
 
-            const worn_col: number = findCol(['worn'])
+            const price_col: number = findCol(['price']);
 
-            const consumable_col: number = findCol(['consumable'])
+            const worn_col: number = findCol(['worn']);
 
-            const checked_col: number = findCol(['checked'])
+            const consumable_col: number = findCol(['consumable']);
 
-            const starred_col: number = findCol(['starred'])
+            const checked_col: number = findCol(['checked']);
 
-            const quantity_col: number = findCol(['quantity', 'qty'])
+            const starred_col: number = findCol(['starred']);
+
+            const quantity_col: number = findCol(['quantity', 'qty']);
 
             if (
               name_col === -1 &&
@@ -168,11 +167,13 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
                 listClone.unitType
               );
 
-              const inputWeight = isNumeric(row[weight_col]) ? row[weight_col] : '0';
+              const inputWeight = isNumeric(row[weight_col])
+                ? row[weight_col]
+                : '0';
 
-              const weightInGrams = toGrams(inputWeight, inputUnit)
+              const weightInGrams = toGrams(inputWeight, inputUnit);
 
-              const targetWeight = fromGrams(weightInGrams, outputUnit)
+              const targetWeight = fromGrams(weightInGrams, outputUnit);
 
               const worn = stringToBool(row[worn_col]);
 
@@ -193,7 +194,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
                 starred: validateStar(row[starred_col]),
                 checked: stringToBool(row[checked_col]),
                 unit: outputUnit,
-                quantity: validateQuantity(row[quantity_col]),
+                quantity: parseQuantity(row[quantity_col]),
               };
 
               if (categoryExistsAlreadyIndex !== -1) {
@@ -252,7 +253,9 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
             if (onUploadComplete) {
               onUploadComplete(listClone);
             } else {
-              dispatch(actions.updateList({ list: listClone, unsavedChanges: true }));
+              dispatch(
+                actions.updateList({ list: listClone, unsavedChanges: true })
+              );
             }
           };
 

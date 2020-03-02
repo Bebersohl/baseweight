@@ -122,7 +122,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         className={classes.input}
         ref={inputRef}
         type="number"
-        min="1"
+        min="0"
         step="1"
         {...commonProps}
       />
