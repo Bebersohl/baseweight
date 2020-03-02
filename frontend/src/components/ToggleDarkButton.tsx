@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { IconButton } from '@material-ui/core';
 
@@ -28,7 +28,7 @@ const ToggleDarkButton: React.FC<ToggleDarkButtonProps> = ({
     <Tooltip title={tooltipText} className={classes.root}>
       <IconButton color="inherit" onClick={onPaletteTypeChange}>
         {paletteType === 'dark' ? (
-          <Brightness4Icon fontSize="inherit" />
+          <Brightness3Icon fontSize="inherit" />
         ) : (
           <Brightness7Icon fontSize="inherit" />
         )}
