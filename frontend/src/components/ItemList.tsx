@@ -71,8 +71,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface ItemListProps {
-  hideHeader?: boolean;
-  hideShare?: boolean;
+  showHeader?: boolean;
+  showShare?: boolean;
   listId: string;
 }
 
@@ -92,7 +92,7 @@ const ItemList: React.FC<ItemListProps> = props => {
 
   const isMobile = useIsMobile();
 
-  const { hideHeader = false, hideShare = false } = props;
+  const { showHeader = true, showShare = true } = props;
 
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
 
@@ -222,7 +222,7 @@ const ItemList: React.FC<ItemListProps> = props => {
     <Grid container spacing={3} key={list.id}>
       <Grid item container>
         <Grid item md={8} sm={12}>
-          {!hideHeader && (
+          {showHeader && (
             <>
               <EditableCell
                 placeholder="List title"
@@ -317,7 +317,10 @@ const ItemList: React.FC<ItemListProps> = props => {
               <SettingsIcon fontSize={isMobile ? 'large' : 'default'} />
             </IconButton>
           </Tooltip>
-          {!hideShare && <SharePopover isMobile={isMobile} listId={list.id} />}
+          {showShare &&
+            (!isListOwner || (isListOwner && isUserSignedIn(userId))) && (
+              <SharePopover isMobile={isMobile} listId={list.id} />
+            )}
           {(isListOwner || list.id === 'demo') && (
             <Tooltip title={editMode ? 'Edit mode' : 'View mode'}>
               <Switch

@@ -84,7 +84,7 @@ const HomeScreen: React.FC<RouteComponentProps> = () => {
       </Typography>
 
       {demoList ? (
-        <ItemList hideHeader hideShare listId="demo" />
+        <ItemList showHeader={false} showShare={false} listId="demo" />
       ) : (
         <Typography style={{ marginTop: 50 }} align="center">
           Loading demo...
