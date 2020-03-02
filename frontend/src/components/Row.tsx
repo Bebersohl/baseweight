@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
         props.borderStyle === 'none'
           ? 'none'
           : `1px ${props.borderStyle} ${theme.palette.grey[700]}`,
-      padding: props.isMobile ? '7.5px 0 7.5px 0' : '2.5px 0 2.5px 0',
+      padding: props.isMobile ? '7.5px 0 7.5px 0' : '0',
       flexDirection: 'row',
       '& div': {
         marginRight: 5,
