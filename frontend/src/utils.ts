@@ -570,3 +570,19 @@ export function getDisplayWeight(
 
   return [valueInGrams, 'g'];
 }
+
+export function getDefaultUnit(valueInGrams: number, unitType: UnitType): Unit {
+  if (valueInGrams >= 1000 && unitType === 'metric') {
+    return 'kg';
+  }
+
+  if (valueInGrams >= 453.592 && unitType === 'imperial') {
+    return 'lb';
+  }
+
+  if (unitType === 'imperial') {
+    return 'oz';
+  }
+
+  return 'g';
+}

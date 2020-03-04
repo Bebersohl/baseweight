@@ -4,27 +4,33 @@ import { Unit } from '../types';
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  unitButton: {
-    // backgroundColor: theme.palette.grey[800],
+  unitButton: (props: any) => ({
     minWidth: 35,
     textTransform: 'none',
-    ...theme.typography.body1
-  },
+    ...theme.typography.body1,
+    fontWeight: props.bold ? 600 : theme.typography.body1.fontWeight,
+  }),
 }));
 
 interface UnitButtonProps {
   value: Unit;
   onChange: (e: any) => void;
+  bold?: boolean;
 }
 
 const UnitButton: React.FC<UnitButtonProps> = ({
   value,
   onChange,
+  bold = false,
 }) => {
-  const classes = useStyles({});
+  const classes = useStyles({
+    bold,
+  });
 
   return (
-  <Button className={classes.unitButton} size="small" onClick={onChange}>{value}</Button>
+    <Button className={classes.unitButton} size="small" onClick={onChange}>
+      {value}
+    </Button>
   );
 };
 
