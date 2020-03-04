@@ -552,25 +552,6 @@ export function convertListToCsvString(list: GearList) {
   return papa.unparse(rows);
 }
 
-export function getDisplayWeight(
-  valueInGrams: number,
-  unitType: UnitType
-): [number, Unit] {
-  if (valueInGrams >= 1000 && unitType === 'metric') {
-    return [fromGrams(valueInGrams, 'kg'), 'kg'];
-  }
-
-  if (valueInGrams >= 453.592 && unitType === 'imperial') {
-    return [fromGrams(valueInGrams, 'lb'), 'lb'];
-  }
-
-  if (unitType === 'imperial') {
-    return [fromGrams(valueInGrams, 'oz'), 'oz'];
-  }
-
-  return [valueInGrams, 'g'];
-}
-
 export function getDefaultUnit(valueInGrams: number, unitType: UnitType): Unit {
   if (valueInGrams >= 1000 && unitType === 'metric') {
     return 'kg';

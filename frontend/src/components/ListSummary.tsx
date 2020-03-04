@@ -169,7 +169,11 @@ const ListSummary: React.FC<ListSummaryProps> = ({
                 />
               </div>
             )}
-            <WeightAndUnit inputWeight={totalWeight} unitType={unitType} />
+            <WeightAndUnit
+              key={unitType}
+              inputWeight={totalWeight}
+              unitType={unitType}
+            />
           </Row>
         );
       })}
@@ -189,6 +193,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           <WeightAndUnit
             inputWeight={listTotals.totalWeight}
             unitType={unitType}
+            key={unitType}
           />
         </Row>
 
@@ -200,6 +205,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           <WeightAndUnit
             inputWeight={listTotals.consumableWeight}
             unitType={unitType}
+            key={unitType}
           />
         </Row>
 
@@ -211,6 +217,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
           <WeightAndUnit
             inputWeight={listTotals.wornWeight}
             unitType={unitType}
+            key={unitType}
           />
         </Row>
 
@@ -225,6 +232,7 @@ const ListSummary: React.FC<ListSummaryProps> = ({
             bold
             inputWeight={listTotals.baseWeight}
             unitType={unitType}
+            key={unitType}
           />
         </Row>
       </div>

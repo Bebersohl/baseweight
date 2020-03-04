@@ -77,7 +77,11 @@ const CategoryTableFooter: React.FC<CategoryTableFooterProps> = ({
           />
         </div>
       )}
-      <WeightAndUnit inputWeight={totalWeight} unitType={unitType} />
+      <WeightAndUnit
+        key={unitType}
+        inputWeight={totalWeight}
+        unitType={unitType}
+      />
       {editMode && <div className={classes.deleteFooter}></div>}
     </Row>
   );
