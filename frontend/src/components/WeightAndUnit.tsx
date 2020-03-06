@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: props.hide ? 'none' : 'block',
   }),
   unit: (props: any) => ({
-    flexBasis: 15,
+    flexBasis: 25,
     flexShrink: 0,
     textAlign: 'right',
     display: props.hide ? 'none' : 'block',

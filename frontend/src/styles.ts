@@ -10,10 +10,8 @@ const hideScroll = {
 };
 
 const weightBasis = 50;
-const unitBasis = 15;
-const unitButtonBasis = 35;
-const weightHeaderEdit = weightBasis + unitButtonBasis + 5;
-const weightHeaderView = weightBasis + unitBasis + 5;
+const unitBasis = 25;
+const weightHeaderBasis = weightBasis + unitBasis + 5;
 const iconBasis = 17;
 
 export const rowStyles: any = (theme: Theme) => {
@@ -171,7 +169,7 @@ export const rowStyles: any = (theme: Theme) => {
       // height: 20,
     },
     weightHeader: props => ({
-      flexBasis: props.editMode ? weightHeaderEdit : weightHeaderView,
+      flexBasis: weightHeaderBasis,
       flexShrink: 0,
       // backgroundColor: 'DarkRed',
       // height: 20,
@@ -182,13 +180,14 @@ export const rowStyles: any = (theme: Theme) => {
     unit: {
       flexBasis: unitBasis,
       flexShrink: 0,
-      textAlign: 'right',
+      textAlign: 'center',
+
       // backgroundColor: 'DarkSalmon',
       // height: 20,
       marginRight: '0 !important',
     },
     unitButton: {
-      flexBasis: unitButtonBasis,
+      flexBasis: unitBasis,
       flexShrink: 0,
       display: 'flex',
       justifyContent: 'center',

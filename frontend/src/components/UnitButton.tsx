@@ -5,7 +5,10 @@ import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => ({
   unitButton: (props: any) => ({
-    minWidth: 35,
+    minWidth: 25,
+    maxHeight: 20,
+    minHeight: 20,
+    padding: 0,
     textTransform: 'none',
     ...theme.typography.body1,
     fontWeight: props.bold ? 600 : theme.typography.body1.fontWeight,
